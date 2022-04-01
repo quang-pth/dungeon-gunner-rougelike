@@ -15,6 +15,8 @@ public class RoomNodeSO : ScriptableObject
     #region Editor Code
 #if UNITY_EDITOR
     [HideInInspector] public Rect rect;
+    [HideInInspector] public bool isLeftClickedDragging = false;
+    [HideInInspector] public bool isSelected = false;
     // Initialise a room node
     public void Initialise(Rect rect, RoomNodeGraphSO roomNodeGraph, RoomNodeTypeSO roomNodeType)
     {
@@ -62,6 +64,108 @@ public class RoomNodeSO : ScriptableObject
 
         return roomArray;
     }
+
+    public void ProcessEvents(Event currentEvent)
+    {
+        switch (currentEvent.type)
+        {
+            case EventType.MouseDown:
+                ProcessMouseDownEvent(currentEvent);
+                break;
+            case EventType.MouseUp:
+                ProcessMouseUpEvent(currentEvent);
+                break;
+            case EventType.MouseDrag:
+                ProcessMouseDragEvent(currentEvent);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ProcessMouseDragEvent(Event currentEvent)
+    {
+        if (currentEvent.button == 0)
+        {
+            ProcessLeftMouseDragEvent(currentEvent);
+        }
+    }
+
+    private void ProcessLeftMouseDragEvent(Event currentEvent)
+    {
+        isLeftClickedDragging = true;
+
+        // Move the room node by the mouse relative displacement
+        DragNode(currentEvent.delta);
+
+        GUI.changed = true;
+    }
+
+    private void DragNode(Vector2 delta)
+    {
+        rect.position += delta;
+        EditorUtility.SetDirty(this); // save room node position when dragging
+    }
+
+    private void ProcessMouseUpEvent(Event currentEvent)
+    {
+        if (currentEvent.button == 0)
+        {
+            ProcessLeftClickUpEvent();
+        }
+    }
+
+    private void ProcessLeftClickUpEvent()
+    {
+        // Room node will no longer be dragged once the mouse is left clicked up
+        if (isLeftClickedDragging)
+        {
+            isLeftClickedDragging = false;
+        }
+    }
+
+    private void ProcessMouseDownEvent(Event currentEvent)
+    {
+        // Left Click on Room Node to drag it
+        if (currentEvent.button == 0)
+        {
+            ProcessLeftClickDownEvent();
+        }
+        // Right Click on Room Node to draw connection lines
+        else if (currentEvent.button == 1)
+        {
+            ProcessRightClickDownEvent(currentEvent);
+        }
+    }
+
+    private void ProcessRightClickDownEvent(Event currentEvent)
+    {
+        roomNodeGraph.SetNodeToDrawLineFrom(this, currentEvent.mousePosition);
+    }
+
+    private void ProcessLeftClickDownEvent()
+    {
+        // Bind selected room node with the room node SO in project window
+        Selection.activeObject = this;
+
+        // Toglle isSelected variable
+        isSelected = !isSelected;
+    }
+
+    // Add child room node id to the node - return true if the node has been added, otherwise false
+    public bool AddChildRoomNodeIDToRoomNode(string childID)
+    {
+        childRoomNodeIDList.Add(childID);
+        return true;
+    }
+
+    // Add parent room node id to the node - return true if the node has been added, otherwise false
+    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    {
+        parentRoomNodeIDList.Add(parentID);
+        return true;
+    }
+
 #endif
     #endregion Editor Code
 

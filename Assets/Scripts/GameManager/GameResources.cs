@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameResources : MonoBehaviour
 {
     private static GameResources instance;
-
+    
     public static GameResources Instance
     {
         get
