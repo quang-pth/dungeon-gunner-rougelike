@@ -1,4 +1,4 @@
-public enum Enums
+﻿public enum Orientation
 {
     north,
     east,
@@ -6,3 +6,4 @@ public enum Enums
     west,
     none
 }
+
