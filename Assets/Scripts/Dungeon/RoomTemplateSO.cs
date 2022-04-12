@@ -37,7 +37,6 @@ public class RoomTemplateSO : ScriptableObject
     [Tooltip("The room node type SO. The room node types correspond to the room nodes used in the room node graph.  The exceptions being with corridors.  In the room node graph there is just one corridor type 'Corridor'.  For the room templates there are 2 corridor node types - CorridorNS and CorridorEW.")]
 
     #endregion Tooltip
-
     public RoomNodeTypeSO roomNodeType;
 
     #region Tooltip
@@ -53,7 +52,6 @@ public class RoomTemplateSO : ScriptableObject
     [Tooltip("If you imagine a rectangle around the room tilemap that just completely encloses it, the room upper bounds represent the top right corner of that rectangle. This should be determined from the tilemap for the room (using the coordinate brush pointer to get the tilemap grid position for that top right corner (Note: this is the local tilemap position and NOT world position")]
 
     #endregion Tooltip
-
     public Vector2Int upperBounds;
 
     #region Tooltip
@@ -61,7 +59,6 @@ public class RoomTemplateSO : ScriptableObject
     [Tooltip("There should be a maximum of four doorways for a room - one for each compass direction.  These should have a consistent 3 tile opening size, with the middle tile position being the doorway coordinate 'position'")]
 
     #endregion Tooltip
-
     [SerializeField] public List<Doorway> doorwayList;
 
     #region Tooltip
@@ -69,12 +66,8 @@ public class RoomTemplateSO : ScriptableObject
     [Tooltip("Each possible spawn position (used for enemies and chests) for the room in tilemap coordinates should be added to this array")]
 
     #endregion Tooltip
-
     public Vector2Int[] spawnPositionArray;
 
-    /// <summary>
-    /// Returns the list of Entrances for the room template
-    /// </summary>
     public List<Doorway> GetDoorwayList()
     {
         return doorwayList;
