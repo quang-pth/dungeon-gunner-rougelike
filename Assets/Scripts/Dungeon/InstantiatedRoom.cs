@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -28,7 +29,109 @@ public class InstantiatedRoom : MonoBehaviour
     {
         PopulateTilemapMemberVariables(roomGameObject);
 
+        BlockOffUnusedDoorways();
+
         DisableCollisionTilemapRenderer();
+    }
+
+    private void BlockOffUnusedDoorways()
+    {
+        foreach (Doorway doorway in room.doorwayList)
+        {
+            if (doorway.isConnected) continue;
+
+            if (groundTilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(groundTilemap, doorway);
+            }
+            if (decoration1Tilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(decoration1Tilemap, doorway);
+            }
+            if (decoration2Tilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(decoration2Tilemap, doorway);
+            }
+            if (frontTilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(frontTilemap, doorway);
+            }
+            if (collisionTilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(collisionTilemap, doorway);
+            }
+            if (minimapTilemap != null)
+            {
+                BlockADoorwayOnTilemapLayer(minimapTilemap, doorway);
+            }
+        }
+    }
+
+    private void BlockADoorwayOnTilemapLayer(Tilemap tilemap, Doorway doorway)
+    {
+        switch (doorway.orientation)
+        {
+            case Orientation.north:
+            case Orientation.south:
+                BlockDoorwayHorizontally(tilemap, doorway);
+                break;
+            case Orientation.east:
+            case Orientation.west:
+                BlockDoorwayVertically(tilemap, doorway);
+                break;
+            case Orientation.none:
+                break;
+        }
+    }
+
+    // Block doorway horizontally for NS doorway
+    private void BlockDoorwayHorizontally(Tilemap tilemap, Doorway doorway)
+    {
+        Vector2Int startPosition = doorway.doorwayStartCopyPosition;
+
+        // Copy the tile from top to bottom - left to right
+        for (int xPos = 0; xPos < doorway.doorwayCopyTileWidth; xPos++)
+        {
+            for (int yPos = 0; yPos < doorway.doorwayCopyTileHeight; yPos++)
+            {
+                Vector3Int originalTilePosition = new Vector3Int(startPosition.x + xPos, startPosition.y - yPos, 0);
+
+                // Get rotation of tile being copied
+                Matrix4x4 transformMatrix = tilemap.GetTransformMatrix(originalTilePosition);
+
+                // Copy the original tile to the new position
+                Vector3Int positionToPlace = new Vector3Int(startPosition.x + 1 + xPos, startPosition.y - yPos, 0);
+                TileBase tileToPlace = tilemap.GetTile(originalTilePosition);
+                tilemap.SetTile(positionToPlace, tileToPlace);
+
+                // Set the new tile's rotation of tile copied
+                tilemap.SetTransformMatrix(positionToPlace, transformMatrix);
+            }
+        }
+    }
+
+
+    // Block doorway horizontally for EW doorway
+    private void BlockDoorwayVertically(Tilemap tilemap, Doorway doorway)
+    {
+        Vector2Int startPosition = doorway.doorwayStartCopyPosition;
+
+        // Copy the tile from left to right - top to bottom
+        for (int yPos = 0; yPos < doorway.doorwayCopyTileHeight; yPos++)
+        {
+            for (int xPos = 0; xPos < doorway.doorwayCopyTileWidth; xPos++)
+            {
+                Vector3Int originalTilePositon = new Vector3Int(startPosition.x + xPos, startPosition.y - yPos, 0);
+
+                Matrix4x4 transformMatrix = tilemap.GetTransformMatrix(originalTilePositon);
+
+                Vector3Int positionToPlace = new Vector3Int(startPosition.x + xPos, startPosition.y - 1 - yPos, 0);
+                TileBase tileToPlace = tilemap.GetTile(originalTilePositon);
+                tilemap.SetTile(positionToPlace, tileToPlace);
+
+                tilemap.SetTransformMatrix(positionToPlace, transformMatrix);
+            }
+        }
     }
 
     private void PopulateTilemapMemberVariables(GameObject roomGameObject)
