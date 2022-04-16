@@ -1,0 +1,62 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "PlayerDetails_", menuName = "Scriptable Objects/Player/Player Details")]
+public class PlayerDetailsSO : ScriptableObject
+{
+    #region Header PLAYER BASIC DETAILS
+    [Space(10)]
+    [Header("PLAYER BASIC DETAILS")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Player character name.")]
+    #endregion
+    public string playerCharacterName;
+
+    #region Tooltip
+    [Tooltip("Prefab game object for the player")]
+    #endregion
+    public GameObject playerPrefab;
+
+    #region Tooltip
+    [Tooltip("Player runtime animator controller")]
+    #endregion
+    public RuntimeAnimatorController runtimeAnimatorController;
+
+    #region Header HEALTH
+    [Space(10)]
+    [Header("HEALTH")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Player starting health amount")]
+    #endregion
+    public int playerHealthAmount;
+
+    #region Header OTHER
+    [Space(10)]
+    [Header("OTHER")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Player icon sprite to be used in the minimap")]
+    #endregion
+    public Sprite playerMinimapIcon;
+
+    #region Tooltip
+    [Tooltip("Player hand sprite")]
+    #endregion
+    public Sprite playerHandSprite;
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckEmptyString(this, nameof(playerCharacterName), playerCharacterName);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(playerPrefab), playerPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(runtimeAnimatorController), runtimeAnimatorController);
+        HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerHealthAmount), playerHealthAmount, false);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(playerMinimapIcon), playerMinimapIcon);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(playerHandSprite), playerHandSprite);
+
+    }
+#endif
+    #endregion
+}

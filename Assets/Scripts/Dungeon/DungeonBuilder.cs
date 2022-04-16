@@ -201,6 +201,7 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder>
     {
         // Get the child room node Doorway corresponding to the parent doorway
         Doorway childDoorway = GetOppositeDoorway(doorwayParent, childRoom.doorwayList);
+        if (childDoorway == null) return false;
         // Parent doorway position's relative to the parent room's lowerbound in the template
         Vector2Int parentDoorwayRelativePosition = doorwayParent.position - parentRoomNode.templateLowerBounds;
         // Parent Doorway position in the game world coordinates
