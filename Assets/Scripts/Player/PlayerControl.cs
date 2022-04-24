@@ -1,28 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    #region Tooltip
+    [Tooltip("MovementDetailsSO containing movement details such as speed")]
+    #endregion
+    [SerializeField] private MovementDetailsSO movementDetails;
+
     #region Tooltip
     [Tooltip("The player WeaponShootPosition gameobject in the hieracrchy")]
     #endregion
     [SerializeField] private Transform weaponShootPosition;
 
     private Player player;
+    private float moveSpeed;
 
     private void Awake() {
         player = GetComponent<Player>();
+        moveSpeed = movementDetails.GetMoveSpeed();
     }
 
     private void Update() {
         MovementInput();
-
         WeaponInput();
     }
 
     private void MovementInput() {
-        player.idleEvent.CallIdleEvent();
+        float xMovement = Input.GetAxis("Horizontal");
+        float yMovement = Input.GetAxis("Vertical");
+        Vector2 moveDirection = new Vector2(xMovement, yMovement);
+
+        if (moveDirection != Vector2.zero) {
+            player.movementByVelocityEvent.CallMovementByVelocityEvent(moveDirection.normalized, moveSpeed);
+        }
+        else {
+            player.idleEvent.CallIdleEvent();
+        }
+
     }
 
     private void WeaponInput() {
@@ -37,9 +51,9 @@ public class PlayerControl : MonoBehaviour
         Vector3 worldMousePosition = HelperUtilities.GetMouseWorldPosition();
 
         // Calculate the weapon direction vector
-        weaponDirection = (worldMousePosition - weaponShootPosition.position);
+        weaponDirection = (worldMousePosition - weaponShootPosition.position).normalized;
         // Calculate the player direction vector
-        Vector3 playerDirection = (worldMousePosition - transform.position);
+        Vector3 playerDirection = (worldMousePosition - transform.position).normalized;
 
         weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
         playerAngleDegrees = HelperUtilities.GetAngleFromVector(playerDirection);
@@ -47,5 +61,15 @@ public class PlayerControl : MonoBehaviour
 
         player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
     }
+
+    #region Validation
+#if UNITY_EDITOR
+
+    private void OnValidate() {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(movementDetails), movementDetails);
+    }
+
+#endif
+    #endregion 
 
 }

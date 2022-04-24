@@ -119,6 +119,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7433040456492163103, guid: f52b19e0acd9f7c4184e0cbbc767ad14, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 436e9ec286604104cb47ebe8ad43cb8b, type: 2}
     - target: {fileID: 7715664344351014631, guid: f52b19e0acd9f7c4184e0cbbc767ad14, type: 3}
       propertyPath: m_Enabled
       value: 1
