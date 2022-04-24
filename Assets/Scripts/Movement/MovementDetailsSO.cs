@@ -18,6 +18,22 @@ public class MovementDetailsSO : ScriptableObject
     #endregion
     public float maxMoveSpeed = 8f;
 
+    // For player
+    #region Tooltip
+    [Tooltip("If there is a roll movement, this is the roll speed")]
+    #endregion
+    public float rollSpeed;
+    
+    #region Tooltip
+    [Tooltip("If there is a roll movement, this is the roll distance")]
+    #endregion
+    public float rollDistance;
+
+    #region Tooltip
+    [Tooltip("If there is a roll movement, this is the roll cool down time in seconds between roll actions")]
+    #endregion
+    public float rollCoolDownTime;
+
     public float GetMoveSpeed() {
         if (minMoveSpeed == maxMoveSpeed) return minMoveSpeed;
 
@@ -28,6 +44,12 @@ public class MovementDetailsSO : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate() {
         HelperUtilities.ValidateCheckPositiveRange(this, nameof(minMoveSpeed), minMoveSpeed, nameof(maxMoveSpeed), maxMoveSpeed, false);
+
+        if (rollSpeed != 0 || rollDistance != 0 | rollCoolDownTime != 0) {
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollDistance), rollDistance, false);
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollSpeed), rollSpeed, false);
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollCoolDownTime), rollCoolDownTime, false);
+        }
     }
 
 #endif
