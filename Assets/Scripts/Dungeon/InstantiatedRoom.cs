@@ -31,6 +31,8 @@ public class InstantiatedRoom : MonoBehaviour
 
         BlockOffUnusedDoorways();
 
+        AddDoorsToRoom();
+
         DisableCollisionTilemapRenderer();
     }
 
@@ -167,6 +169,47 @@ public class InstantiatedRoom : MonoBehaviour
                 minimapTilemap = tilemap;
             }
         }
+    }
+
+    private void AddDoorsToRoom() 
+    {
+        // Not placing a door in a corridor
+        if (room.roomNodeType.isCooridorEW || room.roomNodeType.isCooridorNS) return;
+
+        // Instantiate each doorway
+        foreach (Doorway doorway in room.doorwayList) {
+            if (doorway.doorPrefab != null && doorway.isConnected) {
+                float tileDistance = Settings.tileSizePixels / Settings.pixelPerUnit;
+
+                GameObject door = Instantiate(doorway.doorPrefab, gameObject.transform);
+
+                // Place the door with the correspond doorway's orientation
+                if (doorway.orientation == Orientation.north) {
+                    // Offset the door half of Unity unit to the left and one unit down
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y + tileDistance, 0f);
+                }
+                else if (doorway.orientation == Orientation.south) {
+                    // Offset the door half of Unity unit to the left
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y, 0f);
+                }
+                else if (doorway.orientation == Orientation.east) {
+                    // Offset the door one Unity unit to the left and 1.25 unit down
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+                else if (doorway.orientation == Orientation.west) {
+                    // Offset the door 1.25 Unity unit down
+                    door.transform.localPosition = new Vector3(doorway.position.x, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+
+                Door doorComponent = door.GetComponent<Door>();
+                // Lock the boss room door
+                if (room.roomNodeType.isBossRoom) {
+                    doorComponent.isBossRoomDoor = true;
+                    doorComponent.LockDoor();
+                }
+            }
+        }
+
     }
 
     private void DisableCollisionTilemapRenderer()
