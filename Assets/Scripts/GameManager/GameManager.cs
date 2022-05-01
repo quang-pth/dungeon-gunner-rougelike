@@ -87,6 +87,8 @@ public class GameManager : SingletonMonobehavior<GameManager>
             Debug.Log("Couldn't build dungeon from specified rooms and node graphs");
         }
 
+        StaticEventHandler.CallRoomChangedEvent(currentRoom);
+
         // Set the player roughly mid-room
         float xPosition = (currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2;
         float yPosition = (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2;
