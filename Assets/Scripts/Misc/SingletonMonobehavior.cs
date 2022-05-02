@@ -9,10 +9,11 @@ public abstract class SingletonMonobehavior<T> : MonoBehaviour where T : MonoBeh
         get
         {
             return instance;
+        
         }
     }
 
-    protected virtual void Awake()
+    protected virtual void Awake()  
     {
         if (instance == null)
         {
