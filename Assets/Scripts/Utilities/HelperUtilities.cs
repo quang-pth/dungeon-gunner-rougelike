@@ -124,10 +124,10 @@ public static class HelperUtilities
             {
                 Debug.Log(fieldName + " must contain a positive value or zero in object " + thisObject.name.ToString());
                 error = true;
+            }
         }
         else
         {
-            }
             if (valueToCheck <= 0)
             {
                 Debug.Log(fieldName + " must contain a positive value in object " + thisObject.name.ToString());
