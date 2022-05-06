@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Callbacks;
 using UnityEditor;
-using System;
 
 public class RoomNodeGraphEditor : EditorWindow
 {
@@ -18,7 +17,7 @@ public class RoomNodeGraphEditor : EditorWindow
 
     // Node layout values
     private const float nodeWidth = 160f;
-    private const float nodeHeigt = 75f;
+    private const float nodeHeigth = 75f;
     private const int nodePadding = 25;
     private const int nodeBorder = 12;
 
@@ -474,7 +473,7 @@ public class RoomNodeGraphEditor : EditorWindow
         currentRoomNodeGraph.roomNodeList.Add(roomNode);
 
         // Set room node values
-        roomNode.Initialise(new Rect(mousePosition, new Vector2(nodeWidth, nodeHeigt)), currentRoomNodeGraph, roomNodeType);
+        roomNode.Initialise(new Rect(mousePosition, new Vector2(nodeWidth, nodeHeigth)), currentRoomNodeGraph, roomNodeType);
 
         // Add room node to room node graph SO Asset Database
         AssetDatabase.AddObjectToAsset(roomNode, currentRoomNodeGraph);

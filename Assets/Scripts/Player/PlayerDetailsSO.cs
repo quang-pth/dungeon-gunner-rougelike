@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerDetails_", menuName = "Scriptable Objects/Player/Player Details")]
 public class PlayerDetailsSO : ScriptableObject
@@ -31,6 +32,20 @@ public class PlayerDetailsSO : ScriptableObject
     #endregion
     public int playerHealthAmount;
 
+    #region Header WEAPON
+    [Space(10)]
+    [Header("WEAPON")]
+    #endregion Header WEAPON
+    #region Tooltip
+    [Tooltip("Player initial starting weapon")]
+    #endregion
+    public WeaponDetailsSO startingWeapon;
+
+    #region Tooltip
+    [Tooltip("Populate with the list of starting weapons")]
+    #endregion
+    public List<WeaponDetailsSO> startingWeaponList;
+
     #region Header OTHER
     [Space(10)]
     [Header("OTHER")]
@@ -53,9 +68,10 @@ public class PlayerDetailsSO : ScriptableObject
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerPrefab), playerPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(runtimeAnimatorController), runtimeAnimatorController);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerHealthAmount), playerHealthAmount, false);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(startingWeapon), startingWeapon);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerMinimapIcon), playerMinimapIcon);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerHandSprite), playerHandSprite);
-
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(startingWeaponList), startingWeaponList);
     }
 #endif
     #endregion

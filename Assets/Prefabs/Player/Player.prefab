@@ -27,6 +27,11 @@ GameObject:
   - component: {fileID: 6712036993309294439}
   - component: {fileID: -239253581530391855}
   - component: {fileID: -1901071555839420135}
+  - component: {fileID: 5005565943935137159}
+  - component: {fileID: 8393688402728614531}
+  - component: {fileID: -6127207844776741879}
+  - component: {fileID: 6199789412526173750}
+  - component: {fileID: 455044523322705965}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -247,6 +252,10 @@ MonoBehaviour:
   movementToPositionEvent: {fileID: 0}
   idleEvent: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
+  setActiveWeaponEvent: {fileID: 0}
+  activeWeapon: {fileID: 0}
+  weaponFiredEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &5518691084445825196
@@ -326,7 +335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDetails: {fileID: 11400000, guid: 5c7f10a51d88ecc41bbd7a6721d7b8c1, type: 2}
-  weaponShootPosition: {fileID: 2184297111364370373}
 --- !u!114 &-6052463512050052923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +383,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902a917fd0e9b784fac1c35de226bcc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5005565943935137159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ddfee033f908346899d703c8c468dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8393688402728614531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736803e035b058e4b84f645f2f9bcee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpriteRenderer: {fileID: 4398016578000495798}
+  weaponPolygonCollider2D: {fileID: 7715664344351014631}
+  weaponShootPositionTransform: {fileID: 2184297111364370373}
+  weaponEffectPositionTransform: {fileID: 8596220055151445859}
+--- !u!114 &-6127207844776741879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a835bae7d3340014db4c731f12bc2e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6199789412526173750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe0fbefe9cc853479cc120c8594a5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &455044523322705965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6753684db51cd4abb09b4efd8e5997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &462738068826349102
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462738068826349102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0, z: 0}
+  m_LocalPosition: {x: -0.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2184297111364370373}
@@ -429,7 +501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3300776481326322674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.688, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8596220055151445859}

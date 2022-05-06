@@ -38,4 +38,9 @@ public static class Settings
     public const string playerTag = "Player";
     public const string playerWeapon = "playerWeapon";
     #endregion
+
+    #region FIRING CONTROL
+    public const float useAimAngleDistance = 3.5f; // if the target distance is less this variable then the aim angle
+    // will be used otherwise the weapon aim angle will be used
+    #endregion
 }
