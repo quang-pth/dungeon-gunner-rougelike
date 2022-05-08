@@ -18,11 +18,8 @@ public class Ammo : MonoBehaviour, IFireable
     private bool isAmmoMaterialSet = false;
     private bool overrideAmmoMovement;
 
-    private Player player;
-
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameManager.Instance.GetPlayer();
     }
 
     private void Update() {
@@ -40,7 +37,6 @@ public class Ammo : MonoBehaviour, IFireable
         // Move the ammo each frame towards the fire direction vector
         Vector3 distanceVector = (fireDirectionVector.normalized * ammoSpeed) * Time.deltaTime;
         transform.position += distanceVector;
-
 
         // Disable the ammo if it reached the ammo range
         ammoRange -= distanceVector.magnitude;
@@ -110,8 +106,7 @@ public class Ammo : MonoBehaviour, IFireable
     }
 
     private void SetFireDirection(AmmoDetailsSO ammoDetailsSO, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector) {
-        float randomSpread = Random.Range(ammoDetails.ammoSpreadMin, ammoDetails.ammoSpreadMax);
-
+        float randomSpread = Random.Range(ammoDetailsSO.ammoSpreadMin, ammoDetailsSO.ammoSpreadMax);
         int spreadToggle = Random.Range(0, 2) * 2 - 1;
 
         // Change fire aim direction angle if enemies are too closed to the player
@@ -127,10 +122,7 @@ public class Ammo : MonoBehaviour, IFireable
         // Set ammo ratation
         transform.eulerAngles = new Vector3(0f, 0f, fireDirectionAngle);
 
-        Vector3 worldMousePosition = HelperUtilities.GetMouseWorldPosition();
-        // Get the fire direction vector
-        // fireDirectionVector = HelperUtilities.GetDirectionFromAngle(fireDirectionAngle);
-        fireDirectionVector = (worldMousePosition - player.activeWeapon.GetShootPosition()).normalized;
+        fireDirectionVector = HelperUtilities.GetDirectionFromAngle(fireDirectionAngle);
     }
 
     private void DisableAmmo() {

@@ -67,10 +67,11 @@ public class GameManager : SingletonMonobehavior<GameManager>
     {
         HandleGameState();
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            gameState = GameState.gameStarted;
-        }
+        // Press P to change the dungeon layout
+        // if (Input.GetKeyDown(KeyCode.P))
+        // {
+        //     gameState = GameState.gameStarted;
+        // }
     }
 
     private void HandleGameState()
