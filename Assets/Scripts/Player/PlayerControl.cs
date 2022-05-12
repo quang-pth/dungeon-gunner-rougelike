@@ -160,7 +160,7 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon.weaponDetails.hasInfiniteAmmo) {
+        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity) {
             return;
         }
 
