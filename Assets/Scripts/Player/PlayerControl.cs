@@ -259,6 +259,10 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
+        if (currentWeapon.weaponRemainingAmmo == 0) {
+            return;
+        }
+
         if (currentWeapon.weaponClipRemainingAmmo == currentWeapon.weaponDetails.weaponAmmoCapacity) {
             return;
         }

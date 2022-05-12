@@ -139,12 +139,15 @@ public class WeaponStatusUI : MonoBehaviour
     }
 
     private void UpdateReloadText(Weapon weapon) {
-        if ((!weapon.weaponDetails.hasInfiniteClipCapacity) && (weapon.weaponClipRemainingAmmo <= 0 || weapon.isWeaponReloading)) {
+        if (!weapon.weaponDetails.hasInfiniteClipCapacity && weapon.weaponClipRemainingAmmo <= 0 && !weapon.isWeaponReloading) {
             reloadText.color = Color.red;
             barImage.color = Color.red;
-
             StopBlinkingReloadTextCoroutine();
             blinkingReloadTextCoroutine = StartCoroutine(StartBlinkingReloadTextCoroutine(weapon));
+        }
+        else if (weapon.isWeaponReloading) {
+            StopBlinkingReloadTextCoroutine();
+            reloadText.text = "RELOADING";
         }
         else {
             StopBlinkingReloadText();
