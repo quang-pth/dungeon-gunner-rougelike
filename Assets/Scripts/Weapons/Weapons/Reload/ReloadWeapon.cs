@@ -64,14 +64,19 @@ public class ReloadWeapon : MonoBehaviour
             }
         }
 
+        int amountOfAmmoToLoad = weapon.weaponDetails.weaponClipAmmoCapacity - weapon.weaponClipRemainingAmmo;
+        amountOfAmmoToLoad = Mathf.Min(weapon.weaponRemainingAmmo - weapon.weaponDetails.weaponClipAmmoCapacity, amountOfAmmoToLoad);
+
         if (weapon.weaponDetails.hasInfiniteAmmo) {
-            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+            weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
         }
-        else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
-            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
-        }
+        // else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
+        //     weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+        // }
         else {
-            weapon.weaponClipRemainingAmmo = weapon.weaponRemainingAmmo;
+            // weapon.weaponClipRemainingAmmo = weapon.weaponRemainingAmmo;
+            weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
+            weapon.weaponRemainingAmmo -= amountOfAmmoToLoad;
         }
 
         weapon.weaponReloadTimer = 0f;

@@ -132,7 +132,7 @@ public class WeaponStatusUI : MonoBehaviour
             textToDisplay = "INFINITE AMMO";
         }
         else {
-            textToDisplay = weapon.weaponRemainingAmmo.ToString() + "/" + weapon.weaponDetails.weaponAmmoCapacity.ToString();
+            textToDisplay = (weapon.weaponRemainingAmmo - weapon.weaponDetails.weaponClipAmmoCapacity).ToString() + "/" + (weapon.weaponDetails.weaponAmmoCapacity - weapon.weaponDetails.weaponClipAmmoCapacity).ToString();
         }
 
         ammoRemainingText.text = textToDisplay;

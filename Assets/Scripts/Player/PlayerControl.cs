@@ -259,7 +259,8 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        if (currentWeapon.weaponRemainingAmmo == 0) {
+        // if run of ammo to reload
+        if (currentWeapon.weaponRemainingAmmo - currentWeapon.weaponDetails.weaponClipAmmoCapacity <= 0) {
             return;
         }
 
