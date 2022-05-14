@@ -1439,6 +1439,7 @@ SpriteAtlas:
   - {fileID: 5550420007866624146, guid: c5b82fa5b0668e345b0d034509f17d46, type: 3}
   - {fileID: -5782073686633459769, guid: c5b82fa5b0668e345b0d034509f17d46, type: 3}
   - {fileID: -7998322835733246752, guid: c5b82fa5b0668e345b0d034509f17d46, type: 3}
+  - {fileID: 21300000, guid: 79ebb0b54a80f6746892eb5d1a2c0c54, type: 3}
   - {fileID: -216771464801353174, guid: 18fd83b58274c9a46a1534fccdf6a162, type: 3}
   - {fileID: 2133035318409429770, guid: 18fd83b58274c9a46a1534fccdf6a162, type: 3}
   - {fileID: 4000914080707579537, guid: 18fd83b58274c9a46a1534fccdf6a162, type: 3}
@@ -6333,6 +6334,7 @@ SpriteAtlas:
   - sigil_cross_0
   - sigil_cross_3
   - sigil_cross_2
+  - Shader Test Colours
   - HedusaIdleUpRight_1
   - HedusaIdleUpRight_0
   - HedusaIdleUpRight_3
