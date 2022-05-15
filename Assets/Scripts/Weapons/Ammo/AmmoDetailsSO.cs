@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AmmoDetailsSO_", menuName = "Scritable Objects/Weapons/Ammo Details")]
+[CreateAssetMenu(fileName = "AmmoDetailsSO_", menuName = "Scriptable Objects/Weapons/Ammo Details")]
 public class AmmoDetailsSO : ScriptableObject
 {
     #region Header BASIC AMMO DETAILS

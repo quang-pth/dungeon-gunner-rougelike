@@ -61,6 +61,13 @@ public static class HelperUtilities
         return aimDirection;
     }
 
+    public static float LinearToDecibels(int linear) {
+        float linearScaleRange = 20f;
+
+        // formula convert linear scale to logarithmic decibels scale
+        return Mathf.Log10((float)linear / linearScaleRange) * 20f;
+    }
+
     // Empty string debug check - return true if field name is empty
     public static bool ValidateCheckEmptyString(Object thisObject, string fieldName, string stringToCheck)
     {
