@@ -150,7 +150,7 @@ public class FireWeapon : MonoBehaviour
         // Process shooting particle effect if any
         if (currentWeaponShootEffectSO != null && currentWeaponShootEffectSO.weaponShootEffectPrefab != null) {
             // Get the shoot partile effect component
-            WeaponShootEffect weaponShootEffect = (WeaponShootEffect) PoolManager.Instance.ReuseComponent(currentWeaponShootEffectSO.weaponShootEffectPrefab, activeWeapon.GetShootPosition(), Quaternion.identity);
+            WeaponShootEffect weaponShootEffect = PoolManager.Instance.ReuseComponent(currentWeaponShootEffectSO.weaponShootEffectPrefab, activeWeapon.GetShootPosition(), Quaternion.identity) as WeaponShootEffect;
             // Configure shooting particle effect based on the weapon details
             weaponShootEffect.SetShootEffect(currentWeaponShootEffectSO, aimAngle);
             // Activate the shooting particle effect
