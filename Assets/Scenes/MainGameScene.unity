@@ -1386,6 +1386,9 @@ MonoBehaviour:
   - poolSize: 20
     prefab: {fileID: 5408698577531559574, guid: 01d8519e899f56248a07d6072697e9e0, type: 3}
     componentType: WeaponShootEffect
+  - poolSize: 20
+    prefab: {fileID: 38738016194064450, guid: d5c3d6b2dc7e45a43a8d75da8e3ab259, type: 3}
+    componentType: AmmoHitEffect
 --- !u!4 &983882964
 Transform:
   m_ObjectHideFlags: 0
@@ -1796,7 +1799,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7409091, y: 1}
+    m_SensorSize: {x: 1.8136364, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -46,8 +46,19 @@ public class Ammo : MonoBehaviour, IFireable
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        // Display ammo hit effect before destroy it
+        PlayAmmoHitEffect();
         // Disable the ammo if it coolides with other object
         DisableAmmo();
+    }
+
+    private void PlayAmmoHitEffect() {
+        if (ammoDetails.ammoHitEffectSO != null && ammoDetails.ammoHitEffectSO.ammoHitEffectPrefab != null) {
+            AmmoHitEffect ammoHitEffect = PoolManager.Instance.ReuseComponent(ammoDetails.ammoHitEffectSO.ammoHitEffectPrefab,
+                            transform.position, Quaternion.identity) as AmmoHitEffect;
+            ammoHitEffect.SetHitEffect(ammoDetails.ammoHitEffectSO);
+            ammoHitEffect.gameObject.SetActive(true);
+        }
     }
 
     public void InitialiseAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed, 
