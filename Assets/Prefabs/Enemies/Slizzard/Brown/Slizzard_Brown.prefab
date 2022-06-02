@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5863098010349157681, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: movementDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 7226d71ea9c26834296c4ec7e24e3dfa, type: 2}
     - target: {fileID: 1025027337313586880, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.75
@@ -255,6 +259,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4962105368696266709, guid: a8656369a18034244b64a0e94d781de5, type: 3}
+    - target: {fileID: 4901072511306459432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: enemyDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 95a8df7fe8e3ddd419ea3f331467ed80, type: 2}
     - target: {fileID: 9148974395118798432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_Name
       value: Slizzard_Brown

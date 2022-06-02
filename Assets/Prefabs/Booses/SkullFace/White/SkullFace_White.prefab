@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5863098010349157681, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: movementDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 041656d85f5b59a4ab4bac86c449ca6d, type: 2}
     - target: {fileID: 1025027337313586880, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 3
@@ -239,9 +243,13 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4901072511306459432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: enemyDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6034fe11512d8bb4da942f6fef17583a, type: 2}
     - target: {fileID: 9148974395118798432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_Name
-      value: SkullFace_Red
+      value: SkullFace_White
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5863098010349157681, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: movementDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 790518180ec254746a1f2eb316fbc0c5, type: 2}
     - target: {fileID: 1025027337313586880, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 3
@@ -275,6 +279,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4901072511306459432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: enemyDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: bc429bb1483370f448b731ac0a495922, type: 2}
     - target: {fileID: 9148974395118798432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_Name
       value: SlimeBlockKing_Blue

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5863098010349157681, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: movementDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: acd38901cc040a845bc02c77061d35b2, type: 2}
     - target: {fileID: 1728706325282053058, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_Size.x
       value: 0.25
@@ -123,6 +127,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.94509804
       objectReference: {fileID: 0}
+    - target: {fileID: 4901072511306459432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
+      propertyPath: enemyDetailsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6327bb6764df5fd4c864a27b760f24cc, type: 2}
     - target: {fileID: 9148974395118798432, guid: d658da5478870dd4caf7d4305701fe0a, type: 3}
       propertyPath: m_Name
       value: SlimeRock_Red
