@@ -41,7 +41,12 @@ public static class Settings
 
     #region FIRING CONTROL
     public const float useAimAngleDistance = 3.5f; // if the target distance is less this variable then the aim angle
-    // will be used otherwise the weapon aim angle will be used
+                                                   // will be used otherwise the weapon aim angle will be used
+    #endregion
+
+    #region ASTAR PATHFINDING PARAMETERS
+    public const int defaultAStarMovementPenalty = 40;
+    public const int preferredAStarMovementPenalty = 1;
     #endregion
 
     #region UI PARAMETERS

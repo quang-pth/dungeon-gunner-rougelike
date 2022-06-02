@@ -14,7 +14,22 @@ public class InstantiatedRoom : MonoBehaviour
     [HideInInspector] public Tilemap frontTilemap;
     [HideInInspector] public Tilemap collisionTilemap;
     [HideInInspector] public Tilemap minimapTilemap;
+    [HideInInspector] public int[,] aStarMovementPenalty;
     [HideInInspector] public Bounds roomColliderBounds;
+    [HideInInspector] public int Width
+    {
+        get
+        {
+            return room.templateUpperBounds.x - room.templateLowerBounds.x;
+        }
+    } 
+    [HideInInspector] public int Height
+    {
+        get
+        {
+            return room.templateUpperBounds.y - room.templateLowerBounds.y;
+        }
+    }
 
     private BoxCollider2D boxCollider2D;
 
@@ -39,6 +54,8 @@ public class InstantiatedRoom : MonoBehaviour
         PopulateTilemapMemberVariables(roomGameObject);
 
         BlockOffUnusedDoorways();
+
+        AddObstaclesAndPreferredPaths();
 
         AddDoorsToRoom();
 
@@ -179,6 +196,37 @@ public class InstantiatedRoom : MonoBehaviour
             }
         }
     }
+    
+    private void AddObstaclesAndPreferredPaths()
+    {
+        aStarMovementPenalty = new int[Width + 1, Height + 1];
+
+        for (int xPos = 0; xPos < Width + 1; xPos++)
+        {
+            for (int yPos = 0; yPos < Height + 1; yPos++)
+            {
+                aStarMovementPenalty[xPos, yPos] = Settings.defaultAStarMovementPenalty;
+
+                Vector3Int tilePos = new Vector3Int(xPos + room.templateLowerBounds.x, yPos + room.templateLowerBounds.y, 0);
+                TileBase tile = collisionTilemap.GetTile(tilePos);
+
+                foreach (TileBase collisionTile in GameResources.Instance.enemyUnwalkableCollisionTilesArray)
+                {
+                    if (tile == collisionTile)
+                    {
+                        // This position is an obstacle
+                        aStarMovementPenalty[xPos, yPos] = 0;
+                        break;
+                    }
+                }
+
+                if (tile == GameResources.Instance.preferredEnemyPathTile)
+                {
+                    aStarMovementPenalty[xPos, yPos] = Settings.preferredAStarMovementPenalty;
+                }
+            }
+        }
+    }
 
     private void AddDoorsToRoom() 
     {
@@ -220,7 +268,6 @@ public class InstantiatedRoom : MonoBehaviour
         }
 
     }
-
     private void DisableCollisionTilemapRenderer()
     {
         collisionTilemap.gameObject.GetComponent<TilemapRenderer>().enabled = false;
