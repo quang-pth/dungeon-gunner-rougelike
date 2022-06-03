@@ -1799,7 +1799,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.815678, y: 1}
+    m_SensorSize: {x: 1.9739884, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2720,6 +2720,7 @@ GameObject:
   - component: {fileID: 1963134119}
   - component: {fileID: 1963134118}
   - component: {fileID: 1963134120}
+  - component: {fileID: 1963134121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2746,7 +2747,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eab5338302d464e43bbf0eb9457f06fd, type: 2}
   - {fileID: 11400000, guid: 2a58106ee81c94d4bbd74c1e84e3b50d, type: 2}
   - {fileID: 11400000, guid: a650efa22df72e8469b6a400f43bff37, type: 2}
-  currentDungeonLevelListIdx: 0
+  currentDungeonLevelListIdx: 4
   gameState: 0
 --- !u!4 &1963134119
 Transform:
@@ -2770,6 +2771,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963134117}
   m_Enabled: 1
+--- !u!114 &1963134121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963134117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4007c17e7e46eff439ea256ad300c8af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1993463414
 GameObject:
   m_ObjectHideFlags: 0
