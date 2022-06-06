@@ -14,6 +14,9 @@ public class Room
     public Vector2Int templateUpperBounds;
 
     public Vector2Int[] spawnPositionArray;
+    public List<SpawnableObjectsByLevel<EnemyDetailsSO>> enemiesByLevelList;
+    public List<RoomEnemySpawnParameters> roomLevelEnemySpawnParametersList;
+
     public List<string> childRoomIDList;
     public string parentRoomID;
     public List<Doorway> doorwayList;
@@ -29,6 +32,32 @@ public class Room
     {
         childRoomIDList = new List<string>();
         doorwayList = new List<Doorway>();
+    }
+
+    public int GetNumberOfEnemiesToSpawn(DungeonLevelSO dungeonLevelSO)
+    {
+        foreach (RoomEnemySpawnParameters roomEnemySpawnParameters in roomLevelEnemySpawnParametersList)
+        {
+            if (roomEnemySpawnParameters.dungeonLevelSO == dungeonLevelSO)
+            {
+                return Random.Range(roomEnemySpawnParameters.minTotalEnemiesToSpawn, roomEnemySpawnParameters.maxTotalEnemiesToSpawn);
+            }
+        }
+
+        return 0;
+    }
+
+    public RoomEnemySpawnParameters GetRoomEnemySpawnParameters(DungeonLevelSO dungeonLevelSO)
+    {
+        foreach (RoomEnemySpawnParameters roomEnemySpawnParameters in roomLevelEnemySpawnParametersList)
+        {
+            if (roomEnemySpawnParameters.dungeonLevelSO == dungeonLevelSO)
+            {
+                return roomEnemySpawnParameters;
+            }
+        }
+
+        return null;
     }
 
 }

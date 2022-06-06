@@ -67,7 +67,7 @@ public class RoomTemplateSO : ScriptableObject
 
     #endregion Tooltip
     public Vector2Int[] spawnPositionArray;
-
+    
     #region Header ENEMY DETAILS
     [Space(10)]
     [Header("ENEMY DETAILS")]

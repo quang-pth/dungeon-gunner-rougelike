@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(MovementToPosition))]
 [RequireComponent(typeof(IdleEvent))]
 [RequireComponent(typeof(Idle))]
+[RequireComponent(typeof(AnimateEnemy))]
 [RequireComponent(typeof(SortingGroup))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
@@ -18,7 +19,7 @@ using UnityEngine.Rendering;
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
 {
-    public EnemyDetailsSO enemyDetailsSO;
+    [HideInInspector] public EnemyDetailsSO enemyDetailsSO;
     private EnemyMovementAI enemyMovementAI;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public IdleEvent idleEvent;
@@ -35,5 +36,17 @@ public class Enemy : MonoBehaviour
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         spriteRendererArray = GetComponentsInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    public void EnemyIntialization(EnemyDetailsSO enemyDetailsSO, int enemySpawnNumber, DungeonLevelSO dungeonLevelSO)
+    {
+        this.enemyDetailsSO = enemyDetailsSO;
+
+        SetEnemyAnimationSpeed();
+    }
+
+    private void SetEnemyAnimationSpeed()
+    {
+        animator.speed = enemyMovementAI.moveSpeed / Settings.baseSpeedForEnemyAnimations;
     }
 }
