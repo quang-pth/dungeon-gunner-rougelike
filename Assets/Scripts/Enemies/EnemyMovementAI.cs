@@ -18,6 +18,7 @@ public class EnemyMovementAI : MonoBehaviour
     private WaitForFixedUpdate waitForFixedUpdate;
     [HideInInspector] public float moveSpeed;
     private bool chasePlayer = false;
+    [HideInInspector] public int updateFrameNumber = 1;
 
     private void Awake()
     {
@@ -46,7 +47,15 @@ public class EnemyMovementAI : MonoBehaviour
             chasePlayer = true;
         }
 
-        if (!chasePlayer) return;
+        if (!chasePlayer)
+        {
+            return;
+        }
+
+        if (Time.frameCount % Settings.targetFrameRateToSpreadPathFindingOver != updateFrameNumber)
+        {
+            return;
+        }
 
         // Rebuild path to player if cooldown is reached or player moved a decent amount of distance
         if (currentEnemyPathRebuildCooldown <= 0f || Vector3.Distance(playerRefPos, currentPlayerPosition) >= Settings.playerMoveDistanceToRebuildPath)
@@ -74,6 +83,11 @@ public class EnemyMovementAI : MonoBehaviour
             }
 
         }
+    }
+
+    public void SetUpdateFrameNumber(int updateFrameNumber)
+    {
+        this.updateFrameNumber = updateFrameNumber;
     }
 
     private void CreatePath()

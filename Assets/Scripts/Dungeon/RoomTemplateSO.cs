@@ -141,7 +141,7 @@ public class RoomTemplateSO : ScriptableObject
                         HelperUtilities.ValidateCheckPositiveValue(this, nameof(spawnableObjectRatio.ratio), spawnableObjectRatio.ratio, false);
                     }
 
-                    if (isEnemyTypesForDungeonLevel == false && spawnParameters.dungeonLevelSO != null)
+                    if (isEnemyTypesForDungeonLevel == false && spawnParameters.dungeonLevelSO == null)
                     {
                         Debug.Log("No enemy types specified for the dungeon level " + spawnParameters.dungeonLevelSO.name +
                             " in game object " + this.name.ToString());
