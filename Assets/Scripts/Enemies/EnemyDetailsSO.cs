@@ -50,6 +50,40 @@ public class EnemyDetailsSO : ScriptableObject {
     #endregion
     public Color enemyMaterializeColor;
 
+    #region Header ENEMY WEAPON SETTINGS
+    [Space(10)]
+    [Header("ENEMY WEAPON SETTINGS")]
+    #endregion
+    #region Tooltip
+    [Tooltip("The weapon for the enemy - none if doesnt")]
+    #endregion
+    public WeaponDetailsSO enemyWeaponDetailsSO;
+    #region Tooltip
+    [Tooltip("The minimum time delay interval in seconds between bursts of enemy shooting. This value should be greater than 0. " +
+        "A random value will be selected between the minimum and maximum")]
+    #endregion
+    public float firingIntervalMin = 0.1f;
+    #region Tooltip
+    [Tooltip("The maximum time delay interval in seconds between bursts of enemy shooting. This value should be greater than 0. " +
+        "A random value will be selected between the minimum and maximum")]
+    #endregion
+    public float firingIntervalMax = 1.0f;
+    #region Tooltip
+    [Tooltip("The minimum firing duration that the enemy shoots for during a firing burst. This value should be greater than 0. " +
+        "A random value will be selected between the minimum and maximum")]
+    #endregion
+    public float firingDurationMin = 1.0f;
+    #region Tooltip
+    [Tooltip("The maximum firing duration that the enemy shoots for during a firing burst. This value should be greater than 0. " +
+        "A random value will be selected between the minimum and maximum")]
+    #endregion
+    public float firingDurationMax = 2.0f;
+    #region Tooltip
+    [Tooltip("Select this line of sight is required of the player before the enemy fires. If line of sight" +
+        " isn't selected the enemy will fire regardless of obstacles whenever the player is in 'range'")]
+    #endregion
+    public bool firingLineOfSightRequired;
+
     #region Validation
 #if UNITY_EDITOR
     private void OnValidate() {

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ReloadWeaponEvent))]
@@ -72,9 +71,9 @@ public class ReloadWeapon : MonoBehaviour
 
         int amountOfAmmoToLoad = weapon.weaponDetails.weaponClipAmmoCapacity - weapon.weaponClipRemainingAmmo;
         amountOfAmmoToLoad = Mathf.Min(weapon.weaponRemainingAmmo - weapon.weaponDetails.weaponClipAmmoCapacity, amountOfAmmoToLoad);
-
+        
         if (weapon.weaponDetails.hasInfiniteAmmo) {
-            weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
+            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
         }
         // else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
         //     weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;

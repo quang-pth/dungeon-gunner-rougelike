@@ -1432,6 +1432,9 @@ MonoBehaviour:
   - poolSize: 20
     prefab: {fileID: 38738016194064450, guid: d5c3d6b2dc7e45a43a8d75da8e3ab259, type: 3}
     componentType: AmmoHitEffect
+  - poolSize: 200
+    prefab: {fileID: 7402576719198343306, guid: dfd834b25d3add94d960db34ecb11a71, type: 3}
+    componentType: IFireable
 --- !u!4 &983882964
 Transform:
   m_ObjectHideFlags: 0
@@ -1842,7 +1845,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7654867, y: 1}
+    m_SensorSize: {x: 1.648305, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2790,7 +2793,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eab5338302d464e43bbf0eb9457f06fd, type: 2}
   - {fileID: 11400000, guid: 2a58106ee81c94d4bbd74c1e84e3b50d, type: 2}
   - {fileID: 11400000, guid: a650efa22df72e8469b6a400f43bff37, type: 2}
-  currentDungeonLevelListIdx: 0
+  currentDungeonLevelListIdx: 5
   gameState: 0
   previousGameState: 0
 --- !u!4 &1963134119
