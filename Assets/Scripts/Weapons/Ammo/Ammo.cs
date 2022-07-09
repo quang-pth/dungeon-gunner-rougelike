@@ -46,10 +46,22 @@ public class Ammo : MonoBehaviour, IFireable
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        // Deal damage with the ammo
+        DealDamage(other);
+
         // Display ammo hit effect before destroy it
         PlayAmmoHitEffect();
         // Disable the ammo if it coolides with other object
         DisableAmmo();
+    }
+
+    private void DealDamage(Collider2D other)
+    {
+        Health health = other.GetComponent<Health>();
+        if (health != null)
+        {
+            health.TakeDamage(ammoDetails.ammoDamage);
+        }
     }
 
     private void PlayAmmoHitEffect() {

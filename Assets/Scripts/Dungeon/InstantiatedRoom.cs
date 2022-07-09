@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -277,6 +277,11 @@ public class InstantiatedRoom : MonoBehaviour
     {
         boxCollider2D.enabled = false;
     }
+    
+    public void EnableRoomCollider()
+    {
+        boxCollider2D.enabled = true;
+    }
 
     public void LockDoors()
     {
@@ -290,4 +295,25 @@ public class InstantiatedRoom : MonoBehaviour
         DisableRoomCollider();
     }
 
+    public void UnclockDoors(float doorUnclockDelay)
+    {
+        StartCoroutine(UnclockDoorsRoutine(doorUnclockDelay));
+    }
+
+    private IEnumerator UnclockDoorsRoutine(float doorUnclockDelay)
+    {
+        if (doorUnclockDelay > 0)
+        {
+            yield return new WaitForSeconds(doorUnclockDelay);
+        }
+
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        foreach(Door door in doorArray)
+        {
+            door.UnclockDoor();
+        }
+
+        EnableRoomCollider();
+    }
 }
