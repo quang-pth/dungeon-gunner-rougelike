@@ -105,7 +105,7 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner>
         enemy.GetComponent<DestroyedEvent>().OnDestroyed += Enemy_OnDestroyed;
     }
 
-    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent)
+    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEvetArgs destroyedEvetArgs)
     {
         // Unsubscribe from the event
         destroyedEvent.OnDestroyed -= Enemy_OnDestroyed;

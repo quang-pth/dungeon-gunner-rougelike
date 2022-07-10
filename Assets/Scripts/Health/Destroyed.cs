@@ -21,9 +21,17 @@ public class Destroyed : MonoBehaviour
         destroyedEvent.OnDestroyed -= DestroyedEvent_OnDestroyed;
     }
 
-    private void DestroyedEvent_OnDestroyed(DestroyedEvent destroyedEvent)
+    private void DestroyedEvent_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEvetArgs destroyedEvetArgs)
     {
-        // Destroy enemies or env objects that are attached to this component
-        Destroy(gameObject);
+        // Deactivate player
+        if (destroyedEvetArgs.playerDied)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // Destroy enemies or env objects that are attached to this component
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -93,7 +92,7 @@ public class Enemy : MonoBehaviour
     private void DestroyEnemy()
     {
         DestroyedEvent destroyedEvent = GetComponent<DestroyedEvent>();
-        destroyedEvent.CallDestroyedEvent();
+        destroyedEvent.CallDestroyedEvent(false);
     }
 
     public void EnemyIntialization(EnemyDetailsSO enemyDetailsSO, int enemySpawnNumber, DungeonLevelSO dungeonLevelSO)

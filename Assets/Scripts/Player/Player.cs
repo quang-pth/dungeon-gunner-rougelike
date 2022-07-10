@@ -3,7 +3,10 @@ using UnityEngine.Rendering;
 using System.Collections.Generic;
 
 #region REQUIRE COMPONENTS
+[RequireComponent(typeof(HealthEvent))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(DestroyedEvent))]
+[RequireComponent(typeof(Destroyed))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(MovementByVelocityEvent))]
 [RequireComponent(typeof(MovementByVelocity))]
@@ -34,7 +37,10 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [HideInInspector] public PlayerDetailsSO playerDetails;
+    [HideInInspector] public HealthEvent healthEvent;
     [HideInInspector] public Health health;
+    [HideInInspector] public DestroyedEvent destroyedEvent;
+    [HideInInspector] public PlayerControl playerControl;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public IdleEvent idleEvent;
@@ -52,7 +58,10 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        healthEvent = GetComponent<HealthEvent>();
         health = GetComponent<Health>();
+        destroyedEvent = GetComponent<DestroyedEvent>();
+        playerControl = GetComponent<PlayerControl>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         idleEvent = GetComponent<IdleEvent>();
@@ -65,6 +74,25 @@ public class Player : MonoBehaviour
         weaponReloadedEvent = GetComponent<WeaponReloadedEvent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        healthEvent.OnHealthChanged += HealthEvent_OnHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        healthEvent.OnHealthChanged -= HealthEvent_OnHealthChanged;
+    }
+
+    private void HealthEvent_OnHealthChanged(HealthEvent healthEvent, HealthEventArgs healthEventArgs)
+    {
+        //Debug.Log("Health amount = " + healthEventArgs.healthAmount);
+        if (healthEventArgs.healthAmount <= 0)
+        {
+            destroyedEvent.CallDestroyedEvent(true);
+        }
     }
 
     public void Initialize(PlayerDetailsSO playerDetails)

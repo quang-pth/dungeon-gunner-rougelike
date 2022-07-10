@@ -3,10 +3,19 @@ using UnityEngine;
 
 public class DestroyedEvent : MonoBehaviour
 {
-    public event Action<DestroyedEvent> OnDestroyed;
+    public event Action<DestroyedEvent, DestroyedEvetArgs> OnDestroyed;
 
-    public void CallDestroyedEvent()
+    public void CallDestroyedEvent(bool playerDied)
     {
-        OnDestroyed?.Invoke(this);
+        DestroyedEvetArgs destroyedEvetArgs = new DestroyedEvetArgs()
+        {
+            playerDied = playerDied
+        };
+        OnDestroyed?.Invoke(this, destroyedEvetArgs);
     }
+}
+
+public class DestroyedEvetArgs : EventArgs
+{
+    public bool playerDied;
 }

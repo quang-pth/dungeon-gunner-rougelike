@@ -118,7 +118,16 @@ public class EnemyMovementAI : MonoBehaviour
         Vector2Int adjustedPlayerCellPos = new Vector2Int(playerCellPos.x - currentRoom.instantiatedRoom.room.templateLowerBounds.x,
             playerCellPos.y - currentRoom.instantiatedRoom.room.templateLowerBounds.y);
 
-        int cellPenalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x, adjustedPlayerCellPos.y];
+        int cellPenalty;
+        // Pevent index out of range in some edge cases
+        try
+        {
+            cellPenalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x, adjustedPlayerCellPos.y];
+        }
+        catch
+        {
+            return new Vector3Int(0, 0, 0);
+        }
 
         // current player pos is not an obstacle
         if (cellPenalty != 0)
