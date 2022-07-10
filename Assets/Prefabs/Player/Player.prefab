@@ -37,6 +37,8 @@ GameObject:
   - component: {fileID: 6346271496770541950}
   - component: {fileID: -3675308180011751359}
   - component: {fileID: 6360218191015125913}
+  - component: {fileID: 3861029794358512135}
+  - component: {fileID: 5038907125596287953}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -240,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDamagable: 1
+  enemy: {fileID: 0}
 --- !u!114 &6629441195514130216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +259,7 @@ MonoBehaviour:
   healthEvent: {fileID: 0}
   health: {fileID: 0}
   destroyedEvent: {fileID: 0}
+  playerControl: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   idleEvent: {fileID: 0}
@@ -345,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDetails: {fileID: 11400000, guid: 5c7f10a51d88ecc41bbd7a6721d7b8c1, type: 2}
+  isPlayerRolling: 0
 --- !u!114 &-6052463512050052923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +522,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e8bcb220cb2e94b8409a69e05108c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3861029794358512135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5921080b044e6a34db6de83171ed1b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 131072
+--- !u!114 &5038907125596287953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389134921777403710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb9eb1dd32de2d4bb9f112f8f2c7209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 0
 --- !u!1 &462738068826349102
 GameObject:
   m_ObjectHideFlags: 0
