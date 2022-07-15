@@ -20,14 +20,12 @@ public class DealContactDamage : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isCollding) return;
-
         DealDamage(collision);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (isCollding) return;
-
         DealDamage(collision);
     }
        

@@ -41,7 +41,13 @@ public class Ammo : MonoBehaviour, IFireable
 
         // Disable the ammo if it reached the ammo range
         ammoRange -= distanceVector.magnitude;
-        if (ammoRange <= 0f) {
+        if (ammoRange <= 0f) 
+        {
+            if (ammoDetails.isPlayerAmmo)
+            {
+                StaticEventHandler.CallOnMultiplierEvent(false);
+            }
+
             DisableAmmo();
         }
     }
@@ -49,10 +55,8 @@ public class Ammo : MonoBehaviour, IFireable
     private void OnTriggerEnter2D(Collider2D other) {
         // Prevent ammo from dealing more damage than it should
         if (isColliding) return;
-
         // Deal damage with the ammo
         DealDamage(other);
-
         // Display ammo hit effect before destroy it
         PlayAmmoHitEffect();
         // Disable the ammo if it coolides with other object
@@ -62,11 +66,23 @@ public class Ammo : MonoBehaviour, IFireable
     private void DealDamage(Collider2D other)
     {
         Health health = other.GetComponent<Health>();
+        bool enemyHit = false;
+
         if (health != null)
         {
             isColliding = true;
+
+            if (health.enemy != null)
+            {
+                enemyHit = true;
+            }
+
             health.TakeDamage(ammoDetails.ammoDamage);
         }
+        
+        if (!ammoDetails.isPlayerAmmo) return;
+        
+        StaticEventHandler.CallOnMultiplierEvent(enemyHit);
     }
 
     private void PlayAmmoHitEffect() {

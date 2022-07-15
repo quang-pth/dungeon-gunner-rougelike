@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +25,10 @@ public class GameManager : SingletonMonobehavior<GameManager>
 
     [HideInInspector] public GameState gameState;
     [HideInInspector] public GameState previousGameState;
+    private long gameScore = 0;
+    private long scoreMultiplier = 1;
+    [SerializeField] private int increaseMultiplierFactor = 1;
+    [SerializeField] private int decreaseMultiplierFactor = 3;
 
     protected override void Awake()
     {
@@ -47,10 +51,37 @@ public class GameManager : SingletonMonobehavior<GameManager>
 
     private void OnEnable() {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
+        StaticEventHandler.OnMultiplier += StaticEventHandler_OnMultiplier;
     }
 
     private void OnDisable() {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
+        StaticEventHandler.OnMultiplier -= StaticEventHandler_OnMultiplier;
+    }
+
+    private void StaticEventHandler_OnMultiplier(MultiplierArgs multiplierArgs)
+    {
+        if (multiplierArgs.multiplier)
+        {
+            scoreMultiplier += increaseMultiplierFactor;
+        }
+        else
+        {
+            scoreMultiplier -= decreaseMultiplierFactor;
+        }
+
+        scoreMultiplier = (long) Mathf.Clamp(scoreMultiplier, 1, 30);
+        //  Update the multiplier score on the UI
+        StaticEventHandler.CallOnScoreChangedEvent(gameScore, scoreMultiplier);
+    }
+
+    private void StaticEventHandler_OnPointsScored(PointsScoredArgs pointsScoredArgs)
+    {
+        gameScore += pointsScoredArgs.points * scoreMultiplier;
+        // Update the score on the UI
+        StaticEventHandler.CallOnScoreChangedEvent(gameScore, scoreMultiplier);
     }
 
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs) {
@@ -62,6 +93,7 @@ public class GameManager : SingletonMonobehavior<GameManager>
     {
         previousGameState = GameState.gameStarted;
         gameState = GameState.gameStarted;
+        gameScore = 0;
     }
 
     // Update is called once per frame

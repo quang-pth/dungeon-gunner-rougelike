@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         //Debug.Log("Health amount = " + healthEventArgs.healthAmount);
         if (healthEventArgs.healthAmount <= 0)
         {
-            destroyedEvent.CallDestroyedEvent(true);
+            destroyedEvent.CallDestroyedEvent(true, 0);
         }
     }
 

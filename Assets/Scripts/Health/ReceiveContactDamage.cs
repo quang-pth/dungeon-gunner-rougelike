@@ -23,6 +23,12 @@ public class ReceiveContactDamage : MonoBehaviour
         }
 
         health.TakeDamage(contactDamageAmount);
+        
+        // Reduce multiplier score if the player recieve contact damage
+        if (gameObject.CompareTag("Player"))
+        {
+            StaticEventHandler.CallOnMultiplierEvent(false);
+        }
     }
 
     #region Validation

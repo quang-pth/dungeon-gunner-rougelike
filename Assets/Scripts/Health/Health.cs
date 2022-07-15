@@ -54,14 +54,18 @@ public class Health : MonoBehaviour
     // This method get called when the gameObject is taking damage
     public void TakeDamage(int damageAmount)
     {
-        bool isRolling = player != null && player.playerControl.isPlayerRolling;
+        bool playerIsRolling = player != null && player.playerControl.isPlayerRolling;
 
-        if (isDamagable && !isRolling)
+        if (isDamagable && !playerIsRolling)
         {
             currentHealth -= damageAmount;
             CallHealthEvent(damageAmount);
-
             PostHitImmunity();
+        }
+
+        if (gameObject.CompareTag("Player"))
+        {
+            StaticEventHandler.CallOnMultiplierEvent(false);
         }
     }
 
