@@ -1944,7 +1944,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7902542, y: 1}
+    m_SensorSize: {x: 1.6048565, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3002,6 +3002,7 @@ GameObject:
   - component: {fileID: 1963134118}
   - component: {fileID: 1963134120}
   - component: {fileID: 1963134121}
+  - component: {fileID: 1963134122}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3067,6 +3068,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4007c17e7e46eff439ea256ad300c8af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1963134122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963134117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2fe21d1e883534b82965138213f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniMapCamera: {fileID: 770748772}
 --- !u!1 &1993463414
 GameObject:
   m_ObjectHideFlags: 0

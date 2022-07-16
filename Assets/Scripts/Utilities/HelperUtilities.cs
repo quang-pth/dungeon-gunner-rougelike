@@ -211,4 +211,13 @@ public static class HelperUtilities
 
         return nearestSpawnPosition;
     }
+
+    public static void CameraWorldPositionBounds(out Vector2Int cameraWorldLowerBounds, out Vector2Int cameraWorldUpperBounds, Camera camera)
+    {
+        // Convert camera viewport coords to the game world coords
+        Vector3 worldLowerBounds = camera.ViewportToWorldPoint(new Vector3(0, 0, 0)); // bottom left position
+        Vector3 worldUpperBounds = camera.ViewportToWorldPoint(new Vector3(1, 1, 0)); // top right position
+        cameraWorldLowerBounds = new Vector2Int((int)worldLowerBounds.x, (int)worldLowerBounds.y);
+        cameraWorldUpperBounds = new Vector2Int((int)worldUpperBounds.x, (int)worldUpperBounds.y);
+    }
 }
