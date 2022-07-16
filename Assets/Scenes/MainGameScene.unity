@@ -1944,7 +1944,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6048565, y: 1}
+    m_SensorSize: {x: 1.7976191, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3033,7 +3033,7 @@ MonoBehaviour:
   gameState: 0
   previousGameState: 0
   increaseMultiplierFactor: 1
-  decreaseMultiplierFactor: 2
+  decreaseMultiplierFactor: 1
 --- !u!4 &1963134119
 Transform:
   m_ObjectHideFlags: 0

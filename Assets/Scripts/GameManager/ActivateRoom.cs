@@ -33,4 +33,13 @@ public class ActivateRoom : MonoBehaviour
             }
         }
     }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(miniMapCamera), miniMapCamera);
+    }
+#endif
+    #endregion
 }
