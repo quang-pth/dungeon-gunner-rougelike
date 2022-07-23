@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CurrentPlayer
   m_EditorClassIdentifier: 
   playerDetails: {fileID: 11400000, guid: 5346f7103fbb488438abd9c52527d46c, type: 2}
-  playerName: 
+  playerName: Imposter Thero

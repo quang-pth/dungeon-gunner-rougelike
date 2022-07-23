@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
     private SpriteRenderer spriteRenderer = null;
     private const float spriteFlashInterval = 0.2f;
     private WaitForSeconds WaitForSecondsSpriteFlashInterval = new WaitForSeconds(spriteFlashInterval);
+    [SerializeField] private HealthBar healthBar;
 
     [HideInInspector] public bool isDamagable = true;
     [HideInInspector] public Enemy enemy;
@@ -49,6 +50,15 @@ public class Health : MonoBehaviour
                 spriteRenderer = enemy.spriteRendererArray[0];
             }
         }
+
+        if (enemy != null && enemy.enemyDetailsSO.isHealthBarDisplayed && healthBar != null)
+        {
+            healthBar.EnableHealthBar();
+        }
+        else if (healthBar != null)
+        {
+            healthBar.DisableHealthBar();
+        }
     }
 
     // This method get called when the gameObject is taking damage
@@ -61,8 +71,14 @@ public class Health : MonoBehaviour
             currentHealth -= damageAmount;
             CallHealthEvent(damageAmount);
             PostHitImmunity();
+
+            if (healthBar != null)
+            {
+                healthBar.SetHealthBarValue((float)currentHealth / (float)startingHealth);
+            }
         }
 
+        // Decrease multiplier point if the player has taken damages
         if (gameObject.CompareTag("Player"))
         {
             StaticEventHandler.CallOnMultiplierEvent(false);

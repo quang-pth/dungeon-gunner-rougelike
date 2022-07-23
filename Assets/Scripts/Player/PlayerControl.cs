@@ -18,7 +18,8 @@ public class PlayerControl : MonoBehaviour
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
     private float playerRollCooldownTimer = 0f;
-    
+    private bool isPlayerMovementDisabled = false;
+
     [HideInInspector] public bool isPlayerRolling = false;
 
     private void Awake() {
@@ -52,12 +53,23 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void Update() {
-        if (isPlayerRolling) return;
+        if (isPlayerRolling || isPlayerMovementDisabled) return;
 
         MovementInput();
         WeaponInput();
 
         PlayerRollCooldownTimer();
+    }
+
+    public void EnablePlayer()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    public void DisablePlayer()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.CallIdleEvent();
     }
 
     private void MovementInput() {

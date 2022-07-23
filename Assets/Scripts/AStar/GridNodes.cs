@@ -27,7 +27,15 @@ public class GridNodes
         // Check if position is in range
         if (xPos < width && yPos < height)
         {
-            return gridNode[xPos, yPos];
+            try
+            {
+                return gridNode[xPos, yPos];
+            }
+            catch
+            {
+                Debug.Log("Index out of bounds");
+                return gridNode[0, 0];
+            }
         }
         else
         {
