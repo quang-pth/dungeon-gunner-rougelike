@@ -32134,6 +32134,7 @@ MonoBehaviour:
   roomColliderBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  environmentGameObject: {fileID: 2317068385254769796}
 --- !u!114 &-7539786707621520672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32231,7 +32232,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 139
-      m_TileSpriteIndex: 132
+      m_TileSpriteIndex: 189
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -32281,7 +32282,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 137
-      m_TileSpriteIndex: 129
+      m_TileSpriteIndex: 132
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -55778,14 +55779,14 @@ Tilemap:
     m_Data: {fileID: -7608812502325725178, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: -5003892740038483104, guid: bd551840dad68ba4dac6073b83aef672, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -8389387069088137703, guid: acd82b6c545081944a50df6c0f836293, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: -5393240077076336935, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 2681967082182153914, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1709320301363842267, guid: acd82b6c545081944a50df6c0f836293, type: 3}
+    m_Data: {fileID: -8389387069088137703, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: -1167269067509776218, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 6
@@ -55898,8 +55899,8 @@ Tilemap:
     m_Data: {fileID: -6695894654053923562, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   - m_RefCount: 18
     m_Data: {fileID: -3082896063331448163, guid: bd551840dad68ba4dac6073b83aef672, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1709320301363842267, guid: acd82b6c545081944a50df6c0f836293, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1688
     m_Data:

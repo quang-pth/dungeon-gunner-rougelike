@@ -38,7 +38,6 @@ public class DealContactDamage : MonoBehaviour
         {
             return;
         }
-
         ReceiveContactDamage receiveContactDamage = collision.gameObject.GetComponent<ReceiveContactDamage>();
         if (receiveContactDamage != null)
         {

@@ -292,6 +292,8 @@ public class PlayerControl : MonoBehaviour
 
     // Run only at the first frame of collision until collision exit
     private void OnCollisionEnter2D(Collision2D other) {
+        // Player can roll through these items
+        if (other.gameObject.CompareTag("onGroundDestroyableItem")) return;
         StopPlayerRollRoutine();
     }
 

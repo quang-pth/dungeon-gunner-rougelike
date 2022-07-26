@@ -8,15 +8,19 @@ public class ActivateRoom : MonoBehaviour
     [Header("MINIMAP CAMERA")]
     #endregion
     [SerializeField] private Camera miniMapCamera;
+    [SerializeField] private Camera mainCamera;
 
     private void Start()
     {
+        mainCamera = Camera.main;
         InvokeRepeating("EnableRooms", 0.5f, 0.75f);
     }
 
     private void EnableRooms()
     {
         HelperUtilities.CameraWorldPositionBounds(out Vector2Int miniMapCameraWorldLowerBounds, out Vector2Int miniMapCameraWorldUpperBounds, miniMapCamera);
+        HelperUtilities.CameraWorldPositionBounds(out Vector2Int mainCameraWorldLowerBounds, out Vector2Int mainCameraWorldUpperBounds, mainCamera);
+
         foreach(KeyValuePair<string, Room> keyValuePair in DungeonBuilder.Instance.dungeonBuilderRoomDictionary)
         {
             Room room = keyValuePair.Value;
@@ -26,6 +30,18 @@ public class ActivateRoom : MonoBehaviour
             if (roomIsInBoundsX && roomIsInBoundsY)
             {
                 room.instantiatedRoom.gameObject.SetActive(true);
+
+                // Activate environment items if within the main camera fov
+                roomIsInBoundsX = room.upperBounds.x >= mainCameraWorldLowerBounds.x && room.lowerBounds.x <= mainCameraWorldUpperBounds.x;
+                roomIsInBoundsY = room.upperBounds.y >= mainCameraWorldLowerBounds.y && room.lowerBounds.y <= mainCameraWorldUpperBounds.y;
+                if (roomIsInBoundsX && roomIsInBoundsY)
+                {
+                    room.instantiatedRoom.ActivateEnvironmentGameObjects();
+                }
+                else
+                {
+                    room.instantiatedRoom.DeactivateEnvironmentGameObjects();
+                }
             }
             else
             {

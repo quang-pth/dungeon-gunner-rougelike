@@ -31,6 +31,15 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
+    #region Header OBJECT REFERENCES
+    [Space(10)]
+    [Header("OBJECT REFERENCES")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Populate with the environment child placeholder gameobject")]
+    #endregion
+    [SerializeField] private GameObject environmentGameObject;
+
     private BoxCollider2D boxCollider2D;
 
     private void Awake()
@@ -92,6 +101,22 @@ public class InstantiatedRoom : MonoBehaviour
             {
                 BlockADoorwayOnTilemapLayer(minimapTilemap, doorway);
             }
+        }
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(false);
+        }
+    }
+
+    public void ActivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(true);
         }
     }
 
@@ -316,4 +341,13 @@ public class InstantiatedRoom : MonoBehaviour
 
         EnableRoomCollider();
     }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(environmentGameObject), environmentGameObject);
+    }
+#endif
+    #endregion
 }
