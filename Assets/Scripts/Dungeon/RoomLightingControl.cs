@@ -25,8 +25,9 @@ public class RoomLightingControl : MonoBehaviour
             FadeInRoomLighting();
 
             instantiatedRoom.ActivateEnvironmentGameObjects();
+            instantiatedRoom.ActivateFlameLighting();
             FadeInEnvironmentLighting();
-
+            
             FadeInDoors();
 
             instantiatedRoom.room.isLit = true;
@@ -53,7 +54,7 @@ public class RoomLightingControl : MonoBehaviour
     {
         for (float i = 0.05f; i <= 1f; i += Time.deltaTime / Settings.fadeInTime)
         {
-            material.SetFloat("Alpha_Slider", 1f);
+            material.SetFloat("Alpha_Slider", i);
             yield return null;
         }
 

@@ -39,6 +39,7 @@ public class InstantiatedRoom : MonoBehaviour
     [Tooltip("Populate with the environment child placeholder gameobject")]
     #endregion
     [SerializeField] private GameObject environmentGameObject;
+    [SerializeField] private GameObject flameItem;
 
     private BoxCollider2D boxCollider2D;
 
@@ -117,6 +118,22 @@ public class InstantiatedRoom : MonoBehaviour
         if (environmentGameObject != null)
         {
             environmentGameObject.SetActive(true);
+        }
+    }
+
+    public void ActivateFlameLighting()
+    {
+        if (flameItem != null)
+        {
+            flameItem.SetActive(true);
+        }
+    }
+
+    public void DeactivateFlameLighting()
+    {
+        if (flameItem != null)
+        {
+            flameItem.SetActive(false);
         }
     }
 

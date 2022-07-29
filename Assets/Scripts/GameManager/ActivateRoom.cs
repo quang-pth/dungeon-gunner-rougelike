@@ -41,6 +41,7 @@ public class ActivateRoom : MonoBehaviour
                 else
                 {
                     room.instantiatedRoom.DeactivateEnvironmentGameObjects();
+                    room.instantiatedRoom.DeactivateFlameLighting();
                 }
             }
             else
