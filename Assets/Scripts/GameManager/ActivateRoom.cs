@@ -37,6 +37,10 @@ public class ActivateRoom : MonoBehaviour
                 if (roomIsInBoundsX && roomIsInBoundsY)
                 {
                     room.instantiatedRoom.ActivateEnvironmentGameObjects();
+                    if (room.instantiatedRoom.room.isLit)
+                    {
+                        room.instantiatedRoom.ActivateFlameLighting();
+                    }
                 }
                 else
                 {

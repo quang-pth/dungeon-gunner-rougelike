@@ -65,15 +65,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 53f7d0ccc955d124d88f386ddfbacfab, type: 3}
     - target: {fileID: 5852505528338870495, guid: df0f81a8c8715e54997f6136bdb15ea0, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5852505528338870495, guid: df0f81a8c8715e54997f6136bdb15ea0, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5852505528338870495, guid: df0f81a8c8715e54997f6136bdb15ea0, type: 3}
       propertyPath: m_SortingLayerID
-      value: -653709415
+      value: 1025438153
       objectReference: {fileID: 0}
     - target: {fileID: 8249948992324525232, guid: df0f81a8c8715e54997f6136bdb15ea0, type: 3}
       propertyPath: m_Materials.Array.data[0]
