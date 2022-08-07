@@ -19,6 +19,7 @@ public class EnemyMovementAI : MonoBehaviour
     [HideInInspector] public float moveSpeed;
     private bool chasePlayer = false;
     [HideInInspector] public int updateFrameNumber = 1;
+    private List<Vector2Int> surroundingPositionList = new List<Vector2Int>();
 
     private void Awake()
     {
@@ -122,7 +123,9 @@ public class EnemyMovementAI : MonoBehaviour
         // Pevent index out of range in some edge cases
         try
         {
-            cellPenalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x, adjustedPlayerCellPos.y];
+            int penalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x, adjustedPlayerCellPos.y];
+            int obstacles = currentRoom.instantiatedRoom.aStarItemObstacles[adjustedPlayerCellPos.x, adjustedPlayerCellPos.y];
+            cellPenalty = Mathf.Min(penalty, obstacles);
         }
         catch
         {
@@ -137,30 +140,39 @@ public class EnemyMovementAI : MonoBehaviour
         // Get non-obstacle grid around the current player position
         else
         {
+            surroundingPositionList.Clear();
             for (int i = -1; i <= 1; i++)
             {
                 for (int j = -1; j <= 1; j++)
                 {
-                    if (j == 0 && i == 0) {
-                        continue;
-                    }
-
-                    try
-                    {
-                        cellPenalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x + i, adjustedPlayerCellPos.y + j];
-                        if (cellPenalty != 0)
-                        {
-                            return new Vector3Int(playerCellPos.x + i, playerCellPos.y + j, 0);
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
+                    if (i == 0 && j == 0) continue;
+                    surroundingPositionList.Add(new Vector2Int(i, j));
                 }
             }
+            for (int l = 0; l < 8; l++)
+            {
+                int index = Random.Range(0, surroundingPositionList.Count);
+                try
+                {
+                    int penalty = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerCellPos.x
+                        + surroundingPositionList[index].x, adjustedPlayerCellPos.y + surroundingPositionList[index].y];
+                    int itemObstacle = currentRoom.instantiatedRoom.aStarItemObstacles[adjustedPlayerCellPos.x
+                        + surroundingPositionList[index].x, adjustedPlayerCellPos.y + surroundingPositionList[index].y];
+                    int obstacle = Mathf.Min(penalty, itemObstacle);
+                    if (obstacle != 0)
+                    {
+                        return new Vector3Int(playerCellPos.x + surroundingPositionList[index].x,
+                            playerCellPos.y + surroundingPositionList[index].y, 0);
+                    }
+                }
+                catch
+                {
 
-            return playerCellPos;
+                }
+                surroundingPositionList.RemoveAt(index);
+            }
+
+            return (Vector3Int)currentRoom.spawnPositionArray[Random.Range(0, currentRoom.spawnPositionArray.Length)];
         }
     }
 
