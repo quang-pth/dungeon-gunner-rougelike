@@ -1620,6 +1620,21 @@ MonoBehaviour:
   - poolSize: 200
     prefab: {fileID: 7402576719198343306, guid: dfd834b25d3add94d960db34ecb11a71, type: 3}
     componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8685483384099628626, guid: 7f4d482297a41dc44b629bc8569fde30, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8685483384099628626, guid: 1046c23d48b5b834eb4022a6a85cf698, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8685483384099628626, guid: fc0168250907e4a4d85c7defa16b8aed, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8685483384099628626, guid: bf4df450d5ce9c8459b1b93e3a3e1f67, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8685483384099628626, guid: cbd009fcc670d0f47a891df582eb1165, type: 3}
+    componentType: IFireable
 --- !u!4 &983882964
 Transform:
   m_ObjectHideFlags: 0
@@ -2078,7 +2093,7 @@ MonoBehaviour:
     ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.8718536, y: 1}
+    m_SensorSize: {x: 1.7027028, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3472,7 +3487,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eab5338302d464e43bbf0eb9457f06fd, type: 2}
   - {fileID: 11400000, guid: 2a58106ee81c94d4bbd74c1e84e3b50d, type: 2}
   - {fileID: 11400000, guid: a650efa22df72e8469b6a400f43bff37, type: 2}
-  currentDungeonLevelListIdx: 0
+  currentDungeonLevelListIdx: 5
   gameState: 0
   previousGameState: 0
   increaseMultiplierFactor: 1

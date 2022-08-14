@@ -24,7 +24,6 @@ public class FireWeapon : MonoBehaviour
 
     private void OnEnable() {
         fireWeaponEvent.OnFireWeapon += FireWeaponEvent_OnFireWeapon;
-
     }
 
     private void OnDisable() {
@@ -116,7 +115,6 @@ public class FireWeapon : MonoBehaviour
             float ammoSpeed = Random.Range(currentAmmo.ammoMinSpeed, currentAmmo.ammoMaxSpeed);
 
             IFireable ammo = (IFireable)PoolManager.Instance.ReuseComponent(ammoPrefab, activeWeapon.GetShootPosition(), Quaternion.identity);
-
             ammo.InitialiseAmmo(currentAmmo, aimAngle, weaponAimAngle, ammoSpeed, weaponAimDirectionVector);
 
             ammoCounter++;

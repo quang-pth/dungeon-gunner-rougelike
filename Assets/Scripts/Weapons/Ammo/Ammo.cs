@@ -35,6 +35,8 @@ public class Ammo : MonoBehaviour, IFireable
             isAmmoMaterialSet = true;
         }
 
+        if (overrideAmmoMovement) return;
+
         // Move the ammo each frame towards the fire direction vector
         Vector3 distanceVector = (fireDirectionVector.normalized * ammoSpeed) * Time.deltaTime;
         transform.position += distanceVector;

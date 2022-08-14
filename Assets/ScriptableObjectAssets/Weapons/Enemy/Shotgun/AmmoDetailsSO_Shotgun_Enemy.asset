@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AmmoDetailsSO_Shotgun_Enemy
   m_EditorClassIdentifier: 
   ammoName: Shotgun Ammo Enemy
-  isPlayerAmmo: 1
+  isPlayerAmmo: 0
   ammoSprite: {fileID: 21300000, guid: c3be09077243891458bdbf46a57d2e8a, type: 3}
   ammoPrefabArray:
   - {fileID: 7402576719198343306, guid: dfd834b25d3add94d960db34ecb11a71, type: 3}
