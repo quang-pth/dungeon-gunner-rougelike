@@ -59,13 +59,13 @@ public class ReloadWeapon : MonoBehaviour
         // If the total ammo is to be increased then update
         if (topUpAmmoPercent != 0) {
             int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.weaponClipAmmoCapacity * topUpAmmoPercent) / 100f);
-
-            int totalAmmo = weapon.weaponRemainingAmmo + ammoIncrease;
-
+            
+            int totalAmmo = weapon.weaponClipRemainingAmmo + ammoIncrease;
+            
             if (totalAmmo > weapon.weaponDetails.weaponClipAmmoCapacity) {
-                weapon.weaponRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+                weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
             } else {
-                weapon.weaponRemainingAmmo = totalAmmo;
+                weapon.weaponClipRemainingAmmo = totalAmmo;
             }
         }
 
