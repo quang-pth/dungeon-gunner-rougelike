@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
 [DisallowMultipleComponent]
 public class GameManager : SingletonMonobehavior<GameManager>
@@ -199,12 +198,6 @@ public class GameManager : SingletonMonobehavior<GameManager>
     private void Update()
     {
         HandleGameState();
-
-        // Press P to change the dungeon layout
-        // if (Input.GetKeyDown(KeyCode.P))
-        // {
-        //     gameState = GameState.gameStarted;
-        // }
     }
 
     private void HandleGameState()

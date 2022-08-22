@@ -60,12 +60,13 @@ public class ReloadWeapon : MonoBehaviour
         if (topUpAmmoPercent != 0) {
             int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.weaponClipAmmoCapacity * topUpAmmoPercent) / 100f);
             
-            int totalAmmo = weapon.weaponClipRemainingAmmo + ammoIncrease;
+            int totalAmmo = weapon.weaponRemainingAmmo + ammoIncrease;
             
             if (totalAmmo > weapon.weaponDetails.weaponClipAmmoCapacity) {
-                weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+                weapon.weaponRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+                weapon.weaponClipRemainingAmmo = totalAmmo - weapon.weaponDetails.weaponClipAmmoCapacity;
             } else {
-                weapon.weaponClipRemainingAmmo = totalAmmo;
+                weapon.weaponRemainingAmmo = totalAmmo;
             }
         }
 
@@ -75,11 +76,7 @@ public class ReloadWeapon : MonoBehaviour
         if (weapon.weaponDetails.hasInfiniteAmmo) {
             weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
         }
-        // else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
-        //     weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
-        // }
         else {
-            // weapon.weaponClipRemainingAmmo = weapon.weaponRemainingAmmo;
             weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
             weapon.weaponRemainingAmmo -= amountOfAmmoToLoad;
         }
