@@ -46,6 +46,7 @@ public class GameManager : SingletonMonobehavior<GameManager>
     [SerializeField] private int increaseMultiplierFactor = 1;
     [SerializeField] private int decreaseMultiplierFactor = 3;
     private Room bossRoom = null;
+    private bool isFading = false;
 
     protected override void Awake()
     {
@@ -85,6 +86,13 @@ public class GameManager : SingletonMonobehavior<GameManager>
     private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedEventArgs roomEnemiesDefeatedEventArgs)
     {
         RoomEnemiesDefeated();
+    }
+
+    private void DisplayDungeonOverviewMap()
+    {
+        if (isFading) return;
+
+        DungeonMap.Instance.DisplayDungeonOverViewMap();
     }
 
     private void RoomEnemiesDefeated()
@@ -181,6 +189,8 @@ public class GameManager : SingletonMonobehavior<GameManager>
 
     private IEnumerator Fade(float startFadeAlpha, float targetFadeAlpha, float fadeSeconds, Color backgroundColor)
     {
+        isFading = true;
+
         Image image = canvasGroup.GetComponent<Image>();
         image.color = backgroundColor;
 
@@ -192,6 +202,8 @@ public class GameManager : SingletonMonobehavior<GameManager>
             canvasGroup.alpha = Mathf.Lerp(startFadeAlpha, targetFadeAlpha, time / fadeSeconds);
             yield return null;
         }
+
+        isFading = false;
     }
 
     // Update is called once per frame
@@ -209,6 +221,24 @@ public class GameManager : SingletonMonobehavior<GameManager>
                 gameState = GameState.playingLevel;
                 // Trigger just in case (dungeon level has only 1 entrace and a boss room)
                 RoomEnemiesDefeated();
+                break;
+            case GameState.playingLevel:
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    DisplayDungeonOverviewMap();
+                }
+                break;
+            case GameState.dungeonOverviewmap:
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    DungeonMap.Instance.ClearDungeonOverViewMap();
+                }
+                break;
+            case GameState.bossStage:
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    DisplayDungeonOverviewMap();
+                }
                 break;
             case GameState.levelCompleted:
                 StartCoroutine(LevelCompleted());

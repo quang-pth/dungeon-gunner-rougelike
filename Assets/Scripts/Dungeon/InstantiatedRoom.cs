@@ -366,6 +366,9 @@ public class InstantiatedRoom : MonoBehaviour
                 if (room.roomNodeType.isBossRoom) {
                     doorComponent.isBossRoomDoor = true;
                     doorComponent.LockDoor();
+
+                    GameObject minimapSkullIcon = Instantiate(GameResources.Instance.minimapSkullPrefab, gameObject.transform);
+                    minimapSkullIcon.transform.localPosition = door.transform.localPosition;
                 }
             }
         }
