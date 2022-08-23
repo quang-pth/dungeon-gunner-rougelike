@@ -112,7 +112,7 @@ public class InstantiatedRoom : MonoBehaviour
 
         CreateItemObstaclesArray();
 
-        AddDoorsToRoom();
+        AddDoorsToRoom(roomGameObject);
 
         DisableCollisionTilemapRenderer();
     }
@@ -331,7 +331,7 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
-    private void AddDoorsToRoom() 
+    private void AddDoorsToRoom(GameObject roomGameObject) 
     {
         // Not placing a door in a corridor
         if (room.roomNodeType.isCooridorEW || room.roomNodeType.isCooridorNS) return;
@@ -368,7 +368,7 @@ public class InstantiatedRoom : MonoBehaviour
                     doorComponent.LockDoor();
 
                     GameObject minimapSkullIcon = Instantiate(GameResources.Instance.minimapSkullPrefab, gameObject.transform);
-                    minimapSkullIcon.transform.localPosition = door.transform.localPosition;
+                    minimapSkullIcon.transform.localPosition = doorComponent.transform.localPosition;
                 }
             }
         }

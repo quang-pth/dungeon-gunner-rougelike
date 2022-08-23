@@ -187,7 +187,7 @@ public class GameManager : SingletonMonobehavior<GameManager>
         StartCoroutine(Fade(1f, 0f, 0f, Color.black));
     }
 
-    private IEnumerator Fade(float startFadeAlpha, float targetFadeAlpha, float fadeSeconds, Color backgroundColor)
+    public IEnumerator Fade(float startFadeAlpha, float targetFadeAlpha, float fadeSeconds, Color backgroundColor)
     {
         isFading = true;
 
