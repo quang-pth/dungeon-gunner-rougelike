@@ -356,6 +356,8 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder>
         room.templateID = roomTemplate.guid;
         room.id = roomNode.id;
         room.prefab = roomTemplate.prefab;
+        room.battleMusicSO = roomTemplate.battleMusicSO;
+        room.ambientMusicSO = roomTemplate.ambientMusicSO;
         room.roomNodeType = roomTemplate.roomNodeType;
         room.lowerBounds = roomTemplate.lowerBounds;
         room.upperBounds = roomTemplate.upperBounds;

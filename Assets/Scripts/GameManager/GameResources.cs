@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Tilemaps;
@@ -36,6 +35,26 @@ public class GameResources : MonoBehaviour
     [Tooltip("The current player scriptable object - this is used to reference to the current player between scenes")]
     #endregion
     public CurrentPlayerSO currentPlayer;
+
+    #region Header MUSIC
+    [Space(10), Header("MUSIC")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Populate with the music master mixer group")]
+    #endregion
+    public AudioMixerGroup musicMasterMixerGroup;
+    #region Tooltip
+    [Tooltip("Music on full snapshot")]
+    #endregion
+    public AudioMixerSnapshot musicOnFullSnapshot;
+    #region Tooltip
+    [Tooltip("Music on low snapshot")]
+    #endregion
+    public AudioMixerSnapshot musicOnLowSnapshot;
+    #region Tooltip
+    [Tooltip("Music on off snapshot")]
+    #endregion
+    public AudioMixerSnapshot musicOnOffSnapshot;
 
     #region Header SOUNDS
     [Space(10)]
@@ -162,6 +181,10 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(materializeShader), materializeShader);
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTilesArray), enemyUnwalkableCollisionTilesArray);
         HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicMasterMixerGroup), musicMasterMixerGroup);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnFullSnapshot), musicOnFullSnapshot);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnLowSnapshot), musicOnLowSnapshot);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnOffSnapshot), musicOnOffSnapshot);
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartPrefab), heartPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(chestItemPrefab), chestItemPrefab);

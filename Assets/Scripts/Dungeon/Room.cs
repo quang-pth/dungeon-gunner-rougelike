@@ -7,6 +7,8 @@ public class Room
     public string templateID;
     public GameObject prefab;
     public RoomNodeTypeSO roomNodeType;
+    public MusicTrackSO battleMusicSO;
+    public MusicTrackSO ambientMusicSO;
 
     public Vector2Int lowerBounds;
     public Vector2Int upperBounds;
