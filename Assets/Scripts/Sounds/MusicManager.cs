@@ -7,7 +7,8 @@ public class MusicManager : SingletonMonobehavior<MusicManager>
     private AudioClip currentAudioClip = null;
     private Coroutine fadeOutMusicCoroutine;
     private Coroutine fadeInMusicCoroutine;
-    [SerializeField] private int musicVolume = 10;
+    [SerializeField] public int musicVolume = 10;
+    private const string musicVolumeStoreKey = "musicVolume";
 
     protected override void Awake()
     {
@@ -19,7 +20,18 @@ public class MusicManager : SingletonMonobehavior<MusicManager>
 
     private void Start()
     {
+        // Restore the player set music volume
+        if (PlayerPrefs.HasKey(musicVolumeStoreKey))
+        {
+            musicVolume = PlayerPrefs.GetInt(musicVolumeStoreKey);
+        }
         SetMusicVolume(musicVolume);
+    }
+
+    private void OnDisable()
+    {
+        // Save player set music volume
+        PlayerPrefs.SetInt(musicVolumeStoreKey, musicVolume);
     }
 
     private void SetMusicVolume(int musicVolume)
@@ -80,5 +92,23 @@ public class MusicManager : SingletonMonobehavior<MusicManager>
 
         GameResources.Instance.musicOnFullSnapshot.TransitionTo(fadeInTime);
         yield return new WaitForSeconds(fadeInTime);
+    }
+
+    public void IncreaseMusicVolume()
+    {
+        int maxMusicVolume = 20;
+
+        if (musicVolume > maxMusicVolume) return;
+
+        musicVolume++;
+        SetMusicVolume(musicVolume);
+    }
+    
+    public void DecreaseMusicVolume()
+    {
+        if (musicVolume < 0) return;
+
+        musicVolume--;
+        SetMusicVolume(musicVolume);
     }
 }

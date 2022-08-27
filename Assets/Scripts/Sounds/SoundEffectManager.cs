@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class SoundEffectManager : SingletonMonobehavior<SoundEffectManager>
 {
-    public int soundsVolume = 0;
+    public int soundVolume = 0;
+    private const string soundVolumeStoreKey = "soundVolume";
 
     private void Start() {
-        SetSoundsVolume(soundsVolume);
+        // Restore the player set sound volume
+        if (PlayerPrefs.HasKey(soundVolumeStoreKey))
+        {
+            soundVolume = PlayerPrefs.GetInt(soundVolumeStoreKey);
+        }
+        SetSoundVolume(soundVolume);
     }
-    
+
+    private void OnDisable()
+    {
+        // Store player set sound volume
+        PlayerPrefs.SetInt(soundVolumeStoreKey, soundVolume);
+    }
+
     public void PlaySoundEffect(SoundEffectSO soundEffectSO) {
         SoundEffect soundEffect = (SoundEffect)PoolManager.Instance.ReuseComponent(soundEffectSO.soundPrefab, Vector3.zero, Quaternion.identity);
         soundEffect.SetSound(soundEffectSO);
@@ -23,7 +35,7 @@ public class SoundEffectManager : SingletonMonobehavior<SoundEffectManager>
         sound.gameObject.SetActive(false);
     }
 
-    private void SetSoundsVolume(int soundsVolume) {
+    private void SetSoundVolume(int soundsVolume) {
         float muteDecibel = -80f;
 
         if (soundsVolume == 0) {
@@ -33,4 +45,23 @@ public class SoundEffectManager : SingletonMonobehavior<SoundEffectManager>
             GameResources.Instance.soundMasterMixerGroup.audioMixer.SetFloat("soundsVolume", HelperUtilities.LinearToDecibels(soundsVolume));
         }
     }
+
+    public void IncreaseSoundVolume()
+    {
+        int maxSoundVolume = 20;
+
+        if (soundVolume >= maxSoundVolume) return;
+
+        soundVolume++;
+        SetSoundVolume(soundVolume);
+    }
+
+    public void DecreaseMusicVolume()
+    {
+        if (soundVolume <= 0) return;
+
+        soundVolume--;
+        SetSoundVolume(soundVolume);
+    }
 }
+
