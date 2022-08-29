@@ -334,14 +334,46 @@ public class GameManager : SingletonMonobehavior<GameManager>
         PlayDungeonLevel(currentDungeonLevelListIdx);
     }
 
+    private void SavePlayerRankingScore(out string rankText)
+    {
+        int rank = HighScoreManager.Instance.GetRank(gameScore);
+        if (rank > 0 && rank <= Settings.numberOfHighScoresToSave)
+        {
+            rankText = "YOUR SCORE IS RANKED " + rank.ToString("#0") + " IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+            string playerName = GameResources.Instance.currentPlayer.playerName;
+
+            if (playerName == "")
+            {
+                playerName = playerDetails.playerCharacterName.ToUpper();
+            }
+
+            string description = "LEVEL " + (currentDungeonLevelListIdx + 1).ToString() + " - " + GetCurrentDungeonLevel().levelName.ToUpper();
+            HighScoreManager.Instance.AddScore(new Score()
+            {
+                playerName = playerName,
+                levelDescription = description,
+                playerScore = gameScore
+            }, rank);
+        }
+        else
+        {
+            rankText = "YOUR SCORE ISN'T RANKED IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+        }
+    }
+
     private IEnumerator GameWon()
     {
         previousGameState = GameState.gameWon;
+        GetPlayer().playerControl.DisablePlayer();
+
+        SavePlayerRankingScore(out string rankText);
+
+        yield return new WaitForSeconds(1f);
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
         yield return StartCoroutine(DisplayTextMessage("WELL DONE " + GameResources.Instance.currentPlayer.playerName + "! " +
             "YOU'VE DEFEATED THE DUNGEON", Color.white, 3f));
-        yield return StartCoroutine(DisplayTextMessage("YOU SCORED " + gameScore.ToString("###,###0"), Color.white, 4f));
+        yield return StartCoroutine(DisplayTextMessage("YOU SCORED " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 4f));
         yield return StartCoroutine(DisplayTextMessage("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
         yield return new WaitForSeconds(10f);
@@ -351,7 +383,13 @@ public class GameManager : SingletonMonobehavior<GameManager>
     private IEnumerator GameLost()
     {
         previousGameState = GameState.gameLost;
-        
+
+        GetPlayer().playerControl.DisablePlayer();
+
+        SavePlayerRankingScore(out string rankText);
+
+        yield return new WaitForSeconds(1f);
+
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
         Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
@@ -362,7 +400,7 @@ public class GameManager : SingletonMonobehavior<GameManager>
 
         yield return StartCoroutine(DisplayTextMessage("BAD LUCK " + GameResources.Instance.currentPlayer.playerName + "! " +
             "YOU'VE SUCCURED TO THE DUNGEON", Color.white, 2f));
-        yield return StartCoroutine(DisplayTextMessage("YOU SCORED " + gameScore.ToString("###,###0"), Color.white, 2f));
+        yield return StartCoroutine(DisplayTextMessage("YOU SCORED " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 2f));
         yield return StartCoroutine(DisplayTextMessage("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
         yield return new WaitForSeconds(10f);
@@ -372,7 +410,7 @@ public class GameManager : SingletonMonobehavior<GameManager>
     private void RestartGame()
     {
         currentDungeonLevelListIdx = 0;
-        SceneManager.LoadScene("MainGameScene");
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void SetCurrentRoom(Room room)
