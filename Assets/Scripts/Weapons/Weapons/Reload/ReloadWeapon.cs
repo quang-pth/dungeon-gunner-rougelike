@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ReloadWeaponEvent))]
@@ -59,12 +58,13 @@ public class ReloadWeapon : MonoBehaviour
 
         // If the total ammo is to be increased then update
         if (topUpAmmoPercent != 0) {
-            int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.weaponClipAmmoCapacity * topUpAmmoPercent) / 100f);
-
+            int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.weaponAmmoCapacity * topUpAmmoPercent) / 100f);
+            
             int totalAmmo = weapon.weaponRemainingAmmo + ammoIncrease;
-
-            if (totalAmmo > weapon.weaponDetails.weaponClipAmmoCapacity) {
-                weapon.weaponRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+            
+            if (totalAmmo > weapon.weaponDetails.weaponAmmoCapacity) {
+                weapon.weaponRemainingAmmo = weapon.weaponDetails.weaponAmmoCapacity;
+                weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
             } else {
                 weapon.weaponRemainingAmmo = totalAmmo;
             }
@@ -72,15 +72,11 @@ public class ReloadWeapon : MonoBehaviour
 
         int amountOfAmmoToLoad = weapon.weaponDetails.weaponClipAmmoCapacity - weapon.weaponClipRemainingAmmo;
         amountOfAmmoToLoad = Mathf.Min(weapon.weaponRemainingAmmo - weapon.weaponDetails.weaponClipAmmoCapacity, amountOfAmmoToLoad);
-
+        
         if (weapon.weaponDetails.hasInfiniteAmmo) {
-            weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
+            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
         }
-        // else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
-        //     weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
-        // }
         else {
-            // weapon.weaponClipRemainingAmmo = weapon.weaponRemainingAmmo;
             weapon.weaponClipRemainingAmmo += amountOfAmmoToLoad;
             weapon.weaponRemainingAmmo -= amountOfAmmoToLoad;
         }

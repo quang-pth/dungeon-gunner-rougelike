@@ -27,6 +27,8 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner>
         currentEnemyCount = 0;
         currentRoom = roomChangedEventArgs.room;
 
+        MusicManager.Instance.PlayMusic(currentRoom.ambientMusicSO, 1.5f, 2f);
+
         if (currentRoom.roomNodeType.isCooridorEW || currentRoom.roomNodeType.isCooridorNS || currentRoom.roomNodeType.isEntrance)
         {
             return;
@@ -48,6 +50,8 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner>
 
         enemyMaxConcurrentSpawnNumber = GetConcurrentEnemies();
 
+        MusicManager.Instance.PlayMusic(currentRoom.battleMusicSO, 1.5f, 2.0f);
+
         currentRoom.instantiatedRoom.LockDoors();
 
         SpawnEnemies();
@@ -60,7 +64,12 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner>
 
     private void SpawnEnemies()
     {
-        if (GameManager.Instance.gameState == GameState.playingLevel)
+        if (GameManager.Instance.gameState == GameState.bossStage)
+        {
+            GameManager.Instance.previousGameState = GameState.bossStage;
+            GameManager.Instance.gameState = GameState.engagingBoss;
+        }
+        else if (GameManager.Instance.gameState == GameState.playingLevel)
         {
             GameManager.Instance.previousGameState = GameState.playingLevel;
             GameManager.Instance.gameState = GameState.engagingEnemies;
@@ -102,6 +111,42 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner>
 
         GameObject enemy = Instantiate(enemyDetailsSO.enemyPrefab, position, Quaternion.identity, transform);
         enemy.GetComponent<Enemy>().EnemyIntialization(enemyDetailsSO, enmiesSpawnedSoFar, dungeonLevelSO);
+        enemy.GetComponent<DestroyedEvent>().OnDestroyed += Enemy_OnDestroyed;
+    }
+
+    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEvetArgs destroyedEvetArgs)
+    {
+        // Unsubscribe from the event
+        destroyedEvent.OnDestroyed -= Enemy_OnDestroyed;
+
+        currentEnemyCount--;
+
+        // Score point when enemy is destroyed
+        StaticEventHandler.CallOnPointsScoredEvent(destroyedEvetArgs.points);
+
+        if (currentEnemyCount <= 0 && enmiesSpawnedSoFar == enemiesToSpawn)
+        {
+            currentRoom.isClearedOfEnemies = true;
+
+            if (GameManager.Instance.gameState == GameState.engagingEnemies)
+            {
+                GameManager.Instance.gameState = GameState.playingLevel;
+                GameManager.Instance.previousGameState = GameState.engagingEnemies;
+            }
+            else if (GameManager.Instance.gameState == GameState.engagingBoss)
+            {
+                GameManager.Instance.gameState = GameState.bossStage;
+                GameManager.Instance.gameState = GameState.engagingBoss;
+            }
+
+            // Unclock all doors
+            currentRoom.instantiatedRoom.UnclockDoors(Settings.doorUnclockDelay);
+
+            MusicManager.Instance.PlayMusic(currentRoom.ambientMusicSO, 1.5f, 2f);
+
+            // Trigger enemies defeated event
+            StaticEventHandler.CallOnRoomEnemiesDefeated(currentRoom);
+        }
     }
 
     private float GetEnemySpawnInterval()

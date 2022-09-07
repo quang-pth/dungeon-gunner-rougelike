@@ -17,8 +17,10 @@ public class PlayerControl : MonoBehaviour
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    private bool isPlayerRolling = false;
     private float playerRollCooldownTimer = 0f;
+    private bool isPlayerMovementDisabled = false;
+
+    [HideInInspector] public bool isPlayerRolling = false;
 
     private void Awake() {
         player = GetComponent<Player>();
@@ -51,12 +53,38 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void Update() {
-        if (isPlayerRolling) return;
+        if (isPlayerRolling || isPlayerMovementDisabled) return;
 
         MovementInput();
         WeaponInput();
+        UseItemInput();
 
         PlayerRollCooldownTimer();
+    }
+
+    private void UseItemInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            float radius = 2f;
+            Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(player.GetPlayerPosition(), radius);
+            foreach (Collider2D collider2D in collider2DArray)
+            {
+                IUseable iUseable = collider2D.GetComponent<IUseable>();
+                iUseable?.UseItem();
+            }
+        }
+    }
+
+    public void EnablePlayer()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    public void DisablePlayer()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.CallIdleEvent();
     }
 
     private void MovementInput() {
@@ -279,6 +307,8 @@ public class PlayerControl : MonoBehaviour
 
     // Run only at the first frame of collision until collision exit
     private void OnCollisionEnter2D(Collision2D other) {
+        // Player can roll through these items
+        if (other.gameObject.CompareTag("onGroundDestroyableItem")) return;
         StopPlayerRollRoutine();
     }
 

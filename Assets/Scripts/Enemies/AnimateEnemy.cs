@@ -15,26 +15,24 @@ public class AnimateEnemy : MonoBehaviour
     {
         enemy.movementToPositionEvent.OnMovementToPosition += MovementToPositionEvent_OnMovementToPosition;
         enemy.idleEvent.OnIdle += IdleEvent_OnIdle;
+        enemy.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
     }
 
     private void OnDisable()
     {
         enemy.movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
         enemy.idleEvent.OnIdle -= IdleEvent_OnIdle;
-        
+        enemy.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
-    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent arg1, MovementToPositionArgs arg2)
+    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
     {
-        if (enemy.transform.position.x < GameManager.Instance.GetPlayer().transform.position.x)
-        {
-            SetAimWeaponAnimationParameters(AimDirection.Right);
-        }
-        else
-        {
-            SetAimWeaponAnimationParameters(AimDirection.Left);
-        }
+        InitialiseAnimationParemeters();
+        SetAimWeaponAnimationParameters(aimWeaponEventArgs.aimDirection);
+    }
 
+    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, MovementToPositionArgs movementToPositionArgs)
+    {
         SetMovementAnimationParameters();
     }
 
@@ -46,8 +44,6 @@ public class AnimateEnemy : MonoBehaviour
 
     private void SetAimWeaponAnimationParameters(AimDirection aimDirection)
     {
-        InitialiseAnimationParemeters();
-
         switch (aimDirection)
         {
             case AimDirection.Up:
@@ -67,9 +63,6 @@ public class AnimateEnemy : MonoBehaviour
                 break;
             case AimDirection.Down:
                 enemy.animator.SetBool(Settings.aimDown, true);
-                break;
-            default:
-                enemy.animator.SetBool(Settings.aimLeft, true);
                 break;
         }
     }

@@ -157,8 +157,9 @@ public static class AStar
         Node neighbourNode = gridNodes.GetGridNode(xPos, yPos);
 
         int movementPenaltyForGridSpace = instantiatedRoom.aStarMovementPenalty[xPos, yPos];
+        int itemObstacleForGridSpace = instantiatedRoom.aStarItemObstacles[xPos, yPos];
 
-        if (closedNodeHashSet.Contains(neighbourNode) || movementPenaltyForGridSpace == 0)
+        if (movementPenaltyForGridSpace == 0 || itemObstacleForGridSpace == 0 || closedNodeHashSet.Contains(neighbourNode))
         {
             return null;
         }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 0.7058824}
     key1: {r: 0.8900068, g: 0.8962264, b: 0.054957304, a: 1}
-    key2: {r: 0.9245283, g: 0.082858644, b: 0.082858644, a: 0.7058824}
-    key3: {r: 1, g: 0, b: 0, a: 0}
+    key2: {r: 0.9245283, g: 0.082858644, b: 0.082858644, a: 0}
+    key3: {r: 1, g: 0, b: 0, a: 1}
     key4: {r: 0.03773582, g: 0.03577783, b: 0.03577783, a: 0}
     key5: {r: 0.066037714, g: 0.06448022, b: 0.06448022, a: 0}
     key6: {r: 0.066037714, g: 0.06448022, b: 0.06448022, a: 0}
@@ -31,9 +31,9 @@ MonoBehaviour:
     ctime6: 65535
     ctime7: 65535
     atime0: 0
-    atime1: 52621
+    atime1: 47609
     atime2: 65535
-    atime3: 65535
+    atime3: 59560
     atime4: 0
     atime5: 0
     atime6: 0

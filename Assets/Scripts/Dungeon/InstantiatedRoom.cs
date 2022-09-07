@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,7 +16,10 @@ public class InstantiatedRoom : MonoBehaviour
     [HideInInspector] public Tilemap collisionTilemap;
     [HideInInspector] public Tilemap minimapTilemap;
     [HideInInspector] public int[,] aStarMovementPenalty;
+    [HideInInspector] public int[,] aStarItemObstacles;
     [HideInInspector] public Bounds roomColliderBounds;
+    [HideInInspector] public List<MoveItem> moveableItemsList = new List<MoveItem>();
+    
     [HideInInspector] public int Width
     {
         get
@@ -31,6 +35,16 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
+    #region Header OBJECT REFERENCES
+    [Space(10)]
+    [Header("OBJECT REFERENCES")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Populate with the environment child placeholder gameobject")]
+    #endregion
+    [SerializeField] private GameObject environmentGameObject;
+    [SerializeField] private GameObject flameItem;
+
     private BoxCollider2D boxCollider2D;
 
     private void Awake()
@@ -39,6 +53,45 @@ public class InstantiatedRoom : MonoBehaviour
 
         roomColliderBounds = boxCollider2D.bounds;
     }
+
+    private void Start()
+    {
+        UpdateMoveableObstacles();
+    }
+
+    public void UpdateMoveableObstacles()
+    {
+        InitializeItemObstaclesArray();
+
+        foreach (MoveItem moveItem in moveableItemsList)
+        {
+            Vector3Int colliderBoundMin = grid.WorldToCell(moveItem.boxCollider2D.bounds.min);
+            Vector3Int colliderBoundMax = grid.WorldToCell(moveItem.boxCollider2D.bounds.max);
+            
+            for (int i = colliderBoundMin.x; i <= colliderBoundMax.x; i++)
+            {
+                for (int j = colliderBoundMin.y; j <= colliderBoundMax.y; j++)
+                {
+                    aStarItemObstacles[i - room.templateLowerBounds.x, j - room.templateLowerBounds.y] = 0;
+                }
+            }
+        }
+    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    for (int i = 0; i < Width + 1; i++)
+    //    {
+    //        for (int j = 0; j < Height + 1; j++)
+    //        {
+    //            if (aStarItemObstacles[i, j] == 0)
+    //            {
+    //                Vector3 worldCellPosition = grid.CellToWorld(new Vector3Int(i + room.templateLowerBounds.x, j + room.templateLowerBounds.y, 0));
+    //                Gizmos.DrawWireCube(new Vector3(worldCellPosition.x + 0.5f, worldCellPosition.y + 0.5f, 0f), Vector3.one);
+    //            }
+    //        }
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         // Make the room appear if player collides with the room
@@ -57,9 +110,27 @@ public class InstantiatedRoom : MonoBehaviour
 
         AddObstaclesAndPreferredPaths();
 
-        AddDoorsToRoom();
+        CreateItemObstaclesArray();
+
+        AddDoorsToRoom(roomGameObject);
 
         DisableCollisionTilemapRenderer();
+    }
+
+    private void CreateItemObstaclesArray()
+    {
+        aStarItemObstacles = new int[Width + 1, Height + 1];
+    }
+
+    private void InitializeItemObstaclesArray()
+    {
+        for (int x = 0; x < Width + 1; x++)
+        {
+            for (int y = 0; y < Height + 1; y++)
+            {
+                aStarItemObstacles[x, y] = Settings.defaultAStarMovementPenalty;
+            }
+        }
     }
 
     private void BlockOffUnusedDoorways()
@@ -92,6 +163,38 @@ public class InstantiatedRoom : MonoBehaviour
             {
                 BlockADoorwayOnTilemapLayer(minimapTilemap, doorway);
             }
+        }
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(false);
+        }
+    }
+
+    public void ActivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(true);
+        }
+    }
+
+    public void ActivateFlameLighting()
+    {
+        if (flameItem != null)
+        {
+            flameItem.SetActive(true);
+        }
+    }
+
+    public void DeactivateFlameLighting()
+    {
+        if (flameItem != null)
+        {
+            flameItem.SetActive(false);
         }
     }
 
@@ -228,7 +331,7 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
-    private void AddDoorsToRoom() 
+    private void AddDoorsToRoom(GameObject roomGameObject) 
     {
         // Not placing a door in a corridor
         if (room.roomNodeType.isCooridorEW || room.roomNodeType.isCooridorNS) return;
@@ -263,6 +366,9 @@ public class InstantiatedRoom : MonoBehaviour
                 if (room.roomNodeType.isBossRoom) {
                     doorComponent.isBossRoomDoor = true;
                     doorComponent.LockDoor();
+
+                    GameObject minimapSkullIcon = Instantiate(GameResources.Instance.minimapSkullPrefab, gameObject.transform);
+                    minimapSkullIcon.transform.localPosition = doorComponent.transform.localPosition;
                 }
             }
         }
@@ -277,6 +383,11 @@ public class InstantiatedRoom : MonoBehaviour
     {
         boxCollider2D.enabled = false;
     }
+    
+    public void EnableRoomCollider()
+    {
+        boxCollider2D.enabled = true;
+    }
 
     public void LockDoors()
     {
@@ -290,4 +401,34 @@ public class InstantiatedRoom : MonoBehaviour
         DisableRoomCollider();
     }
 
+    public void UnclockDoors(float doorUnclockDelay)
+    {
+        StartCoroutine(UnclockDoorsRoutine(doorUnclockDelay));
+    }
+
+    private IEnumerator UnclockDoorsRoutine(float doorUnclockDelay)
+    {
+        if (doorUnclockDelay > 0)
+        {
+            yield return new WaitForSeconds(doorUnclockDelay);
+        }
+
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        foreach(Door door in doorArray)
+        {
+            door.UnclockDoor();
+        }
+
+        EnableRoomCollider();
+    }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(environmentGameObject), environmentGameObject);
+    }
+#endif
+    #endregion
 }

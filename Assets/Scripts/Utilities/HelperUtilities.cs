@@ -190,6 +190,22 @@ public static class HelperUtilities
         return error;
     }
 
+    public static bool ValidateCheckPositiveRange(Object thisObject, string fieldNameMinimum, int valueToCheckMinimum,
+                string fieldNameMaximum, int valueToCheckMaximum, bool isZeroAllowed)
+    {
+        bool error = false;
+
+        if (valueToCheckMinimum > valueToCheckMaximum)
+        {
+            Debug.Log(fieldNameMinimum + " must be less than or equal to " + fieldNameMaximum + " in object " + thisObject.name.ToString());
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMinimum, valueToCheckMinimum, isZeroAllowed)) error = true;
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMaximum, valueToCheckMaximum, isZeroAllowed)) error = true;
+
+        return error;
+    }
 
     public static Vector3 GetPositionNearestToPlayer(Vector3 playerPosition)
     {
@@ -210,5 +226,14 @@ public static class HelperUtilities
         }
 
         return nearestSpawnPosition;
+    }
+
+    public static void CameraWorldPositionBounds(out Vector2Int cameraWorldLowerBounds, out Vector2Int cameraWorldUpperBounds, Camera camera)
+    {
+        // Convert camera viewport coords to the game world coords
+        Vector3 worldLowerBounds = camera.ViewportToWorldPoint(new Vector3(0, 0, 0)); // bottom left position
+        Vector3 worldUpperBounds = camera.ViewportToWorldPoint(new Vector3(1, 1, 0)); // top right position
+        cameraWorldLowerBounds = new Vector2Int((int)worldLowerBounds.x, (int)worldLowerBounds.y);
+        cameraWorldUpperBounds = new Vector2Int((int)worldUpperBounds.x, (int)worldUpperBounds.y);
     }
 }

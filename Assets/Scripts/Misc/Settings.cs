@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public static class Settings
 {
@@ -15,6 +16,7 @@ public static class Settings
     #region ROOM SETTINGS
     public const float fadeInTime = 0.5f;
     public const int maxChildCorridors = 3;
+    public const float doorUnclockDelay = 1f;
     #endregion
 
     #region  ANIMATOR PARAMETERS
@@ -30,14 +32,26 @@ public static class Settings
     public static int rollRight = Animator.StringToHash("rollRight");
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollDown = Animator.StringToHash("rollDown");
+    public static int flipUp = Animator.StringToHash("flipUp");
+    public static int flipRight = Animator.StringToHash("flipRight");
+    public static int flipLeft = Animator.StringToHash("flipLeft");
+    public static int flipDown = Animator.StringToHash("flipDown");
+    public static int use = Animator.StringToHash("use");
     public static float baseSpeedForPlayerAnimations = 8f;
     public static float baseSpeedForEnemyAnimations = 3f;
     public static int open = Animator.StringToHash("open");
+    public static int destroy = Animator.StringToHash("destroy");
+    public static String destroyedState = "Destroyed";
     #endregion
 
     #region GAMEOBJECT TAGS
     public const string playerTag = "Player";
     public const string playerWeapon = "playerWeapon";
+    #endregion
+
+    #region Header MUSIC
+    public const float musicFadeOutTime = 0.5f;
+    public const float musicFadeInTime = 0.5f;
     #endregion
 
     #region FIRING CONTROL
@@ -53,7 +67,20 @@ public static class Settings
     public const float enemyPathRebuildCooldown = 2f;
     #endregion
 
+    #region ENEMY PARAMETERS
+    public const int defaultEnemyHealth = 20;
+    #endregion
+
     #region UI PARAMETERS
+    public const float uiHeartSpacing = 16f;
     public const float uiAmmoIconSpacing = 4f;
+    #endregion
+
+    #region CONTACT DAMAGE PARAMETERS
+    public const float contactDamageCollisionResetDelay = 0.5f;
+    #endregion
+
+    #region HIGHSCORE
+    public const int numberOfHighScoresToSave = 100;
     #endregion
 }

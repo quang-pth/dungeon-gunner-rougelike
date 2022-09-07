@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98109177349e573418fdb2d6854725fa, type: 3}
+  m_Name: WeaponDetails_HedusaPattern_Enemy
+  m_EditorClassIdentifier: 
+  weaponName: Hedusa Pattern Enemy
+  weaponSprite: {fileID: 0}
+  weaponShootPosition: {x: 0.688, y: 0.312, z: 0}
+  weaponCurrentAmmo: {fileID: 11400000, guid: 0860300dfde1e51469c09a85691ec548, type: 2}
+  weaponShootEffectSO: {fileID: 11400000, guid: a591886b9fae1ff4eae6504055eba68a, type: 2}
+  weaponFiringSoundEffect: {fileID: 11400000, guid: 6db358a70c281b840b263f7837dae643, type: 2}
+  weaponReloadingSoundEffect: {fileID: 0}
+  hasInfiniteAmmo: 1
+  hasInfiniteClipCapacity: 1
+  weaponAmmoCapacity: 10
+  weaponClipAmmoCapacity: 10
+  weaponFireRate: 3
+  weaponPrechargeTime: 2
+  weaponReloadTime: 1.232
